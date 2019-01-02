@@ -88,6 +88,14 @@ namespace DatingSite.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Firstname")]
+        public string FirstName { get; set; }
+        
+
+        [Required]
+        public string Lastname { get; set; }
     }
 
     public class ResetPasswordViewModel
