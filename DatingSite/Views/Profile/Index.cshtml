@@ -1,0 +1,22 @@
+﻿@using System.Collections.Generic;
+@using DatingSite.Models;
+@using System;
+
+@model List<DatingSite.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table class="table table-bordered table-hover">
+    @foreach (var ApplicationUser in Model)
+    {
+
+    <tr>
+        @*<td>@Html.ActionLink(ApplicationUser.FirstName + ApplicationUser.LastName, "Details", "Profile", new { Id = ApplicationUser.Id }, null)</td>*@
+        <td>@Html.ActionLink(ApplicationUser.Email, "Details", "Profile", new { Id = ApplicationUser.Id }, null)</td>
+    </tr>
+    }
+</table>
+

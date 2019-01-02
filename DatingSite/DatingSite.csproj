@@ -176,9 +176,23 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812280444141_InitialCreate.cs" />
+    <Compile Include="Migrations\201812280444141_InitialCreate.Designer.cs">
+      <DependentUpon>201812280444141_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812290142265_AddLastNameToAppUser.cs" />
+    <Compile Include="Migrations\201812290142265_AddLastNameToAppUser.Designer.cs">
+      <DependentUpon>201812290142265_AddLastNameToAppUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812290257224_AddDescriptionToUser.cs" />
+    <Compile Include="Migrations\201812290257224_AddDescriptionToUser.Designer.cs">
+      <DependentUpon>201812290257224_AddDescriptionToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -186,6 +200,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-litera.css" />
+    <Content Include="Content\bootstrap-lumen.css" />
+    <Content Include="Content\bootstrap-minty.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -218,8 +235,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -241,6 +256,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Profile\Details.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -257,6 +275,17 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201812280444141_InitialCreate.resx">
+      <DependentUpon>201812280444141_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812290142265_AddLastNameToAppUser.resx">
+      <DependentUpon>201812290142265_AddLastNameToAppUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812290257224_AddDescriptionToUser.resx">
+      <DependentUpon>201812290257224_AddDescriptionToUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

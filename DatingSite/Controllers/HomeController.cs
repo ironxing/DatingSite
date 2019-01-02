@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatingSite.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,22 @@ namespace DatingSite.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext _dbcontext;
+
+        public HomeController()
+        {
+            _dbcontext = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _dbcontext.Dispose();
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var Users = _dbcontext.Users.ToList();
+            return View(Users);
         }
 
         public ActionResult About()

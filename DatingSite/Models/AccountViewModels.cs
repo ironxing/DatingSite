@@ -46,6 +46,15 @@ namespace DatingSite.Models
         public string Email { get; set; }
     }
 
+    public class ProfileViewModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        [EmailAddress]
+        public string Email { get; set; }
+        
+    }
+
     public class LoginViewModel
     {
         [Required]
