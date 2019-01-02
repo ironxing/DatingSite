@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -163,9 +166,6 @@
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -180,25 +180,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812280444141_InitialCreate.cs" />
-    <Compile Include="Migrations\201812280444141_InitialCreate.Designer.cs">
-      <DependentUpon>201812280444141_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812290142265_AddLastNameToAppUser.cs" />
-    <Compile Include="Migrations\201812290142265_AddLastNameToAppUser.Designer.cs">
-      <DependentUpon>201812290142265_AddLastNameToAppUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812290257224_AddDescriptionToUser.cs" />
-    <Compile Include="Migrations\201812290257224_AddDescriptionToUser.Designer.cs">
-      <DependentUpon>201812290257224_AddDescriptionToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901021109498_test.cs" />
-    <Compile Include="Migrations\201901021109498_test.Designer.cs">
-      <DependentUpon>201901021109498_test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901021113167_TestAddData.cs" />
-    <Compile Include="Migrations\201901021113167_TestAddData.Designer.cs">
-      <DependentUpon>201901021113167_TestAddData.cs</DependentUpon>
+    <Compile Include="Migrations\201901021137218_Test.cs" />
+    <Compile Include="Migrations\201901021137218_Test.Designer.cs">
+      <DependentUpon>201901021137218_Test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -285,20 +269,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812280444141_InitialCreate.resx">
-      <DependentUpon>201812280444141_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812290142265_AddLastNameToAppUser.resx">
-      <DependentUpon>201812290142265_AddLastNameToAppUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812290257224_AddDescriptionToUser.resx">
-      <DependentUpon>201812290257224_AddDescriptionToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901021109498_test.resx">
-      <DependentUpon>201901021109498_test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901021113167_TestAddData.resx">
-      <DependentUpon>201901021113167_TestAddData.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901021137218_Test.resx">
+      <DependentUpon>201901021137218_Test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
