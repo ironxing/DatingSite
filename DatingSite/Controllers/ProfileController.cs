@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Drawing;
 
 namespace DatingSite.Controllers
 {
@@ -72,7 +73,7 @@ namespace DatingSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(ApplicationUser User)
+        public ActionResult Save(ApplicationUser User, HttpPostedFileBase file)
         {
             if(User.Id == "")
             {
@@ -85,7 +86,17 @@ namespace DatingSite.Controllers
                 userInDb.FirstName = User.FirstName;
                 userInDb.LastName = User.LastName;
                 userInDb.Description = User.Description;
+
+                if (ModelState.IsValid)
+                {
+                    if (file != null)
+                    {
+                        file.SaveAs(HttpContext.Server.MapPath("~/Images/") + file.FileName);
+                        userInDb.ImagePath = file.FileName;
+                    }
+                }
             }
+            
             _dbcontext.SaveChanges();
             return RedirectToAction("Details","Profile", new { Id = User.Id });
         }

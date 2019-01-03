@@ -15,6 +15,7 @@ namespace DatingSite.Models
         public virtual string LastName { get; set; }
         public virtual string Description { get; set; }
         //public virtual DateTime BirthDate { get; set; }
+        public virtual string ImagePath { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

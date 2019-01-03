@@ -147,11 +147,24 @@ namespace DatingSite.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Description = model.Description;
+
+
+                if (file != null)
+                {
+                    file.SaveAs(HttpContext.Server.MapPath("~/Images/") + file.FileName);
+                    user.ImagePath = file.FileName;
+                }
+
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

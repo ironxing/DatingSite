@@ -180,9 +180,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901021137218_Test.cs" />
-    <Compile Include="Migrations\201901021137218_Test.Designer.cs">
-      <DependentUpon>201901021137218_Test.cs</DependentUpon>
+    <Compile Include="Migrations\201901030845431_AddPicturePathToUser.cs" />
+    <Compile Include="Migrations\201901030845431_AddPicturePathToUser.Designer.cs">
+      <DependentUpon>201901030845431_AddPicturePathToUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -269,8 +269,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901021137218_Test.resx">
-      <DependentUpon>201901021137218_Test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901030845431_AddPicturePathToUser.resx">
+      <DependentUpon>201901030845431_AddPicturePathToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
