@@ -29,7 +29,7 @@ namespace DatingSite.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DatingSiteDB", throwIfV1Schema: false)
         {
         }
 

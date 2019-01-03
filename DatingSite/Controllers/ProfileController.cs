@@ -141,5 +141,20 @@ namespace DatingSite.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        public JsonResult Search(string SearchInput)
+        {
+            //A list where username matches SearchInput
+            List<ApplicationUser> searchResult = _dbcontext.Users.Where(u => u.UserName.Contains(SearchInput) && u.Id != User.Identity.GetUserId()).ToList();
+
+            //AddRange where FirstName matches SearchInput
+            searchResult.AddRange(_dbcontext.Users.Where(u => u.FirstName.Contains(SearchInput) && u.Id != User.Identity.GetUserId()).ToList());
+
+            //AddRange where LastName matches SearchInput
+            searchResult.AddRange(_dbcontext.Users.Where(u => u.LastName.Contains(SearchInput) && u.Id != User.Identity.GetUserId()).ToList());
+
+            return Json(searchResult);
+        }
     }
 }
