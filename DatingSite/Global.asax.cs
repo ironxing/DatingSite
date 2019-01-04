@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using DatingSite.Models;
 
 namespace DatingSite
 {
@@ -13,8 +14,7 @@ namespace DatingSite
     {
         protected void Application_Start()
         {
-            //Database.SetInitializer(new DropCreateDatabaseAlways<>());
-
+            Database.SetInitializer(new DatingSiteDBinitializer());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

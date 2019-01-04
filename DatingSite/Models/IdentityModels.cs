@@ -31,6 +31,7 @@ namespace DatingSite.Models
         public ApplicationDbContext()
             : base("DatingSiteDB", throwIfV1Schema: false)
         {
+
         }
 
         public static ApplicationDbContext Create()
