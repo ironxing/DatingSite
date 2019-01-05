@@ -142,19 +142,21 @@ namespace DatingSite.Controllers
             }
         }
 
+
         [HttpPost]
-        public JsonResult Search(string SearchInput)
+        public ActionResult SearchResult(string SearchInput)
         {
             //A list where username matches SearchInput
-            List<ApplicationUser> searchResult = _dbcontext.Users.Where(u => u.UserName.Contains(SearchInput) && u.Id != User.Identity.GetUserId()).ToList();
+            List<ApplicationUser> searchResult = _dbcontext.Users.Where(u => u.UserName.Contains(SearchInput) /*&& u.Id != User.Identity.GetUserId()*/).ToList();
 
             //AddRange where FirstName matches SearchInput
-            searchResult.AddRange(_dbcontext.Users.Where(u => u.FirstName.Contains(SearchInput) && u.Id != User.Identity.GetUserId()).ToList());
+            searchResult.AddRange(_dbcontext.Users.Where(u => u.FirstName.Contains(SearchInput) /*&& u.Id != User.Identity.GetUserId()*/).ToList());
 
             //AddRange where LastName matches SearchInput
-            searchResult.AddRange(_dbcontext.Users.Where(u => u.LastName.Contains(SearchInput) && u.Id != User.Identity.GetUserId()).ToList());
+            searchResult.AddRange(_dbcontext.Users.Where(u => u.LastName.Contains(SearchInput) /*&& u.Id != User.Identity.GetUserId()*/).ToList());
 
-            return Json(searchResult);
+            return View(searchResult);
+            //return Content(SearchInput);
         }
     }
 }
