@@ -46,7 +46,11 @@ namespace DatingSite.Controllers
                 LatestProfileVisits = _dbcontext.ProfileVisits
                                 .Where(p => p.ProfileUserId == Id && p.VisitorUserId != Id)
                                 .OrderByDescending(p => p.VisitDateTime)
-                                .Take(5).ToList()
+                                .Take(5).ToList(),
+                MessageItems = _dbcontext.MessageItems
+                               .Where(m => m.ProfileUserId == Id)
+                               .OrderByDescending(m => m.messageTime)
+                               .Take(5).ToList()
             });
         }
 
