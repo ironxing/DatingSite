@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,11 +12,13 @@ namespace DatingSite.Models
     public class ApplicationUser : IdentityUser
     {
         
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
-        public virtual string Description { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Description { get; set; }
         //public virtual DateTime BirthDate { get; set; }
-        public virtual string ImagePath { get; set; }
+        public string ImagePath { get; set; }
+
+        public virtual ICollection<ProfileVisit> ProfileVisit { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -28,6 +31,8 @@ namespace DatingSite.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<ProfileVisit> ProfileVisits { get; set; }
+
         public ApplicationDbContext()
             : base("DatingSiteDB", throwIfV1Schema: false)
         {

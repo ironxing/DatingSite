@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Drawing;
+using DatingSite.Models.ViewModels;
 
 namespace DatingSite.Controllers
 {
@@ -35,10 +36,17 @@ namespace DatingSite.Controllers
         public ActionResult Details(string Id)
         {
             //var userId = User.Identidy.GetUserId();
-            var User = _dbcontext.Users.SingleOrDefault(u => u.Id == Id);
-            if (User == null)
+            var user = _dbcontext.Users.SingleOrDefault(u => u.Id == Id);
+            if (user == null)
                 return HttpNotFound();
-            return View(User);
+            return View(new ProfileDetailViewModel
+            {
+                User = user,
+                LatestProfileVisits = _dbcontext.ProfileVisits
+                                .Where(p => p.ProfileUserId == Id)
+                                .OrderByDescending(p => p.VisitDateTime)
+                                .Take(5).ToList()
+        });
         }
 
         // GET: Profile/Create

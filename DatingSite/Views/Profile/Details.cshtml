@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@model DatingSite.Models.ApplicationUser
+@model DatingSite.Models.ViewModels.ProfileDetailViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -13,46 +13,41 @@
         <dl class="dl-horizontal">
             <div class="card-body">
                 <dt>
-                    <img src="~/Images/@Html.DisplayFor(model =>model.ImagePath)" style="height:200px;width:200px;" />
-
+                    <img src="~/Images/@Html.DisplayFor(model =>model.User.ImagePath)" style="height:200px;width:200px;" />
+                </dt>
                 <dt>
-                    @Html.DisplayNameFor(model => model.FirstName)
+                    @Html.DisplayNameFor(model => model.User.FirstName)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.FirstName)
+                    @Html.DisplayFor(model => model.User.FirstName)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.LastName)
+                    @Html.DisplayNameFor(model => model.User.LastName)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.LastName)
+                    @Html.DisplayFor(model => model.User.LastName)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Email)
+                    @Html.DisplayNameFor(model => model.User.Email)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Email)
+                    @Html.DisplayFor(model => model.User.Email)
                 </dd>
 
-
                 <dt>
-                    @Html.DisplayNameFor(model => model.Description)
+                    @Html.DisplayNameFor(model => model.User.Description)
                 </dt>
-
-
 
                 <p>
-                    @Html.DisplayFor(model => model.Description)
+                    @Html.DisplayFor(model => model.User.Description)
                 </p>
 
             </div>
-
-
         </dl>
     </div>
 
@@ -81,11 +76,37 @@
     @Html.ActionLink("Back to Home", "Index", "Home")
 </p>
 <p>
-    @if (Model.Id == User.Identity.GetUserId())
+    @if (Model.User.Id == User.Identity.GetUserId())
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
     }
 </p>
 
+<div class="list-group">
+    @foreach (var item in Model.LatestProfileVisits)
+    {
+        @item.VisitorUser.FirstName
+    }
+    <form id="add-visit-form">
+        <input type="hidden" id="ProfileUserId" value="@Model.User.Id" />
+        <input type="hidden" id="VisitorUserId" value="@User.Identity.GetUserId()" />
+        <div class="form-group">
+            <div class="input-group">
+                <button class="btn btn-success">Lägg till</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 
+@section scripts {
+    <script>
+        $(document).ready(function (ev) {
+            var ProfileUserId = $('#ProfileUserId').val();
+            var VisitorUserId = $('#VisitorUserId').val();
+
+            $.get('/API/ProfileVisits/VISIT/Add?profileUserId='
+                + ProfileUserId + '&visitorUserId=' + VisitorUserId)
+        });
+    </script>
+}

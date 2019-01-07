@@ -52,12 +52,21 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -173,7 +182,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\APIControllers\ProfileVisitAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -184,11 +195,25 @@
     <Compile Include="Migrations\201901031323479_new.Designer.cs">
       <DependentUpon>201901031323479_new.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901051210186_AddProfileVisitModel.cs" />
+    <Compile Include="Migrations\201901051210186_AddProfileVisitModel.Designer.cs">
+      <DependentUpon>201901051210186_AddProfileVisitModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901051214598_AddFKtoProfileVisitModel.cs" />
+    <Compile Include="Migrations\201901051214598_AddFKtoProfileVisitModel.Designer.cs">
+      <DependentUpon>201901051214598_AddFKtoProfileVisitModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901070838387_ProfileVisits.cs" />
+    <Compile Include="Migrations\201901070838387_ProfileVisits.Designer.cs">
+      <DependentUpon>201901070838387_ProfileVisits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DatingSiteDBinitializer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProfileVisit.cs" />
+    <Compile Include="Models\ViewModels\ProfileDetailViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -274,6 +299,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201901031323479_new.resx">
       <DependentUpon>201901031323479_new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901051210186_AddProfileVisitModel.resx">
+      <DependentUpon>201901051210186_AddProfileVisitModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901051214598_AddFKtoProfileVisitModel.resx">
+      <DependentUpon>201901051214598_AddFKtoProfileVisitModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901070838387_ProfileVisits.resx">
+      <DependentUpon>201901070838387_ProfileVisits.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
