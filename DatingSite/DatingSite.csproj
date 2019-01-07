@@ -184,6 +184,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\APIControllers\MessageAPIController.cs" />
     <Compile Include="Controllers\APIControllers\ProfileVisitAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -207,11 +208,52 @@
     <Compile Include="Migrations\201901070838387_ProfileVisits.Designer.cs">
       <DependentUpon>201901070838387_ProfileVisits.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901071146527_IdModel.cs" />
+    <Compile Include="Migrations\201901071146527_IdModel.Designer.cs">
+      <DependentUpon>201901071146527_IdModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901071203336_testKeyId.cs" />
+    <Compile Include="Migrations\201901071203336_testKeyId.Designer.cs">
+      <DependentUpon>201901071203336_testKeyId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901071252277_testKeyId3.cs" />
+    <Compile Include="Migrations\201901071252277_testKeyId3.Designer.cs">
+      <DependentUpon>201901071252277_testKeyId3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901071254085_testId4.cs" />
+    <Compile Include="Migrations\201901071254085_testId4.Designer.cs">
+      <DependentUpon>201901071254085_testId4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901071257209_testId5.cs" />
+    <Compile Include="Migrations\201901071257209_testId5.Designer.cs">
+      <DependentUpon>201901071257209_testId5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901071302190_Idagain.cs" />
+    <Compile Include="Migrations\201901071302190_Idagain.Designer.cs">
+      <DependentUpon>201901071302190_Idagain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901071316002_FK.cs" />
+    <Compile Include="Migrations\201901071316002_FK.Designer.cs">
+      <DependentUpon>201901071316002_FK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901071320584_autokeys.cs" />
+    <Compile Include="Migrations\201901071320584_autokeys.Designer.cs">
+      <DependentUpon>201901071320584_autokeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901071327275_testFK.cs" />
+    <Compile Include="Migrations\201901071327275_testFK.Designer.cs">
+      <DependentUpon>201901071327275_testFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901071410570_AddMessageModel.cs" />
+    <Compile Include="Migrations\201901071410570_AddMessageModel.Designer.cs">
+      <DependentUpon>201901071410570_AddMessageModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DatingSiteDBinitializer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MessageItem.cs" />
     <Compile Include="Models\ProfileVisit.cs" />
     <Compile Include="Models\ViewModels\ProfileDetailViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -308,6 +350,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901070838387_ProfileVisits.resx">
       <DependentUpon>201901070838387_ProfileVisits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071146527_IdModel.resx">
+      <DependentUpon>201901071146527_IdModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071203336_testKeyId.resx">
+      <DependentUpon>201901071203336_testKeyId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071252277_testKeyId3.resx">
+      <DependentUpon>201901071252277_testKeyId3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071254085_testId4.resx">
+      <DependentUpon>201901071254085_testId4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071257209_testId5.resx">
+      <DependentUpon>201901071257209_testId5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071302190_Idagain.resx">
+      <DependentUpon>201901071302190_Idagain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071316002_FK.resx">
+      <DependentUpon>201901071316002_FK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071320584_autokeys.resx">
+      <DependentUpon>201901071320584_autokeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071327275_testFK.resx">
+      <DependentUpon>201901071327275_testFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901071410570_AddMessageModel.resx">
+      <DependentUpon>201901071410570_AddMessageModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

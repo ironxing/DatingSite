@@ -57,46 +57,53 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                    <input type="text" required id="new-message"/>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="SendMessage" class="btn btn-primary">Post Message</button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 <p>
     @Html.ActionLink("Back to Home", "Index", "Home")
 </p>
-<p>
-    @if (Model.User.Id == User.Identity.GetUserId())
-    {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
-    }
-</p>
 
-<div class="list-group">
-    @foreach (var item in Model.LatestProfileVisits)
-    {
-        @item.VisitorUser.FirstName
-    }
-    <form id="add-visit-form">
-        <input type="hidden" id="ProfileUserId" value="@Model.User.Id" />
-        <input type="hidden" id="VisitorUserId" value="@User.Identity.GetUserId()" />
-        <div class="form-group">
-            <div class="input-group">
-                <button class="btn btn-success">Lägg till</button>
-            </div>
+@if (Model.User.Id == User.Identity.GetUserId())
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
+    </p>
+
+    <div class="card border-secondary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Latest five visitors</div>
+        <div class="card-body">
+            <ul style="list-style-type:none">
+                @if (Model.LatestProfileVisits.Any())
+                {
+                    foreach (var item in Model.LatestProfileVisits)
+                    {
+                        <a href="/Profile/Details/@item.VisitorUser.Id">
+
+                            <li>
+                                @String.Concat(item.VisitorUser.FirstName, " ", item.VisitorUser.LastName)
+                            </li>
+                        </a>
+                    }
+                }
+            </ul>
         </div>
-    </form>
-</div>
+    </div>
+}
+
+<input type="hidden" id="ProfileUserId" value="@Model.User.Id" />
+<input type="hidden" id="VisitorUserId" value="@User.Identity.GetUserId()" />
+
+
 
 
 @section scripts {
@@ -107,6 +114,22 @@
 
             $.get('/API/ProfileVisits/VISIT/Add?profileUserId='
                 + ProfileUserId + '&visitorUserId=' + VisitorUserId)
+
+            $('#SendMessage').click(function (ev) {
+                ev.preventDefault();
+           
+                var Message = $('#new-message').val();
+                console.log(Message);
+                var Sender = $('#ProfileUserId').val();
+                var Reciever = $('#VisitorUserId').val();
+
+                $('#new-message').val("");
+
+                $.get('/API/Message/Message/Add?message='
+                    + Message + '&sender=' + Sender + '&reciever=' + Reciever)
+            });
         });
+
+       
     </script>
 }

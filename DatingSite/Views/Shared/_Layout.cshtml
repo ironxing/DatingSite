@@ -22,12 +22,12 @@
                     </li>
                 </ul>
 
-                    @using (Html.BeginForm("SearchResult", "Profile", null, FormMethod.Post))
-                    {
-                        <input id="SearchInput" name="SearchInput" class="form-control mr-sm-2" type="text" placeholder="Search">
-                        <input type="submit" value="Search" class="btn btn-secondary" />
-                    }
-
+                @using (Html.BeginForm("SearchResult", "Profile", null, FormMethod.Post, htmlAttributes: new { @class="form-inline my-2 my-lg-0"}))
+                {
+                    <input id="SearchInput" name="SearchInput" class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <input type="submit" value="Search" class="btn btn-secondary" />
+                }
+                    
                 <div class="nav navbar-nav ml-auto">
                     @Html.Partial("_LoginPartial")
                 </div>

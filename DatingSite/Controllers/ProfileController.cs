@@ -39,14 +39,15 @@ namespace DatingSite.Controllers
             var user = _dbcontext.Users.SingleOrDefault(u => u.Id == Id);
             if (user == null)
                 return HttpNotFound();
+
             return View(new ProfileDetailViewModel
             {
                 User = user,
                 LatestProfileVisits = _dbcontext.ProfileVisits
-                                .Where(p => p.ProfileUserId == Id)
+                                .Where(p => p.ProfileUserId == Id && p.VisitorUserId != Id)
                                 .OrderByDescending(p => p.VisitDateTime)
                                 .Take(5).ToList()
-        });
+            });
         }
 
         // GET: Profile/Create
@@ -83,7 +84,7 @@ namespace DatingSite.Controllers
         [HttpPost]
         public ActionResult Save(ApplicationUser User, HttpPostedFileBase file)
         {
-            if(User.Id == "")
+            if (User.Id == "")
             {
                 _dbcontext.Users.Add(User);
             }
@@ -104,9 +105,9 @@ namespace DatingSite.Controllers
                     }
                 }
             }
-            
+
             _dbcontext.SaveChanges();
-            return RedirectToAction("Details","Profile", new { Id = User.Id });
+            return RedirectToAction("Details", "Profile", new { Id = User.Id });
         }
 
         // POST: Profile/Edit/5
