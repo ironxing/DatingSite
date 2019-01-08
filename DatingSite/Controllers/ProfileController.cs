@@ -31,7 +31,7 @@ namespace DatingSite.Controllers
             return View(Users);
         }
 
-        // GET: Profile/Details/5
+        // GET: Profile/Details/
         [Authorize]
         public ActionResult Details(string Id)
         {
@@ -76,7 +76,7 @@ namespace DatingSite.Controllers
             }
         }
 
-        // GET: Profile/Edit/5
+        // GET: Profile/Edit/
         public ActionResult Edit(string Id)
         {
             var User = _dbcontext.Users.SingleOrDefault(u => u.Id == Id);
@@ -159,17 +159,16 @@ namespace DatingSite.Controllers
         [HttpPost]
         public ActionResult SearchResult(string SearchInput)
         {
-            //A list where username matches SearchInput
-            List<ApplicationUser> searchResult = _dbcontext.Users.Where(u => u.UserName.Contains(SearchInput) /*&& u.Id != User.Identity.GetUserId()*/).ToList();
+            List<ApplicationUser> EmailMatched = _dbcontext.Users.Where(u => u.UserName.Equals(SearchInput) /*&& u.Id != User.Identity.GetUserId()*/).ToList();
 
-            //AddRange where FirstName matches SearchInput
-            searchResult.AddRange(_dbcontext.Users.Where(u => u.FirstName.Contains(SearchInput) /*&& u.Id != User.Identity.GetUserId()*/).ToList());
+            List<ApplicationUser> FirstNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.FirstName)/*&& u.Id != User.Identity.GetUserId()*/).ToList();
 
-            //AddRange where LastName matches SearchInput
-            searchResult.AddRange(_dbcontext.Users.Where(u => u.LastName.Contains(SearchInput) /*&& u.Id != User.Identity.GetUserId()*/).ToList());
+            List<ApplicationUser> LastNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.LastName) /*&& u.Id != User.Identity.GetUserId()*/).ToList();
+            
+            //Union the lists together, get disctinct users
+            List<ApplicationUser> SearchResult = EmailMatched.Union(FirstNameMatched).Union(LastNameMatched).ToList();
 
-            return View(searchResult);
-            //return Content(SearchInput);
+            return View(SearchResult);
         }
     }
 }

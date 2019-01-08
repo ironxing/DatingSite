@@ -6,11 +6,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Profile</h2>
 
 <div class="row">
     <div class="col-lg-4">
-        <hr />
         <dl class="dl-horizontal">
             <div class="card-body">
                 <dt>
@@ -50,6 +48,39 @@
 
             </div>
         </dl>
+
+        <p>
+            @Html.ActionLink("Back to Home", "Index", "Home")
+        </p>
+
+
+
+        @if (Model.User.Id == User.Identity.GetUserId())
+        {
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
+            </p>
+
+            <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Latest five visitors</div>
+                <div class="card-body">
+                    <ul style="list-style-type:none">
+                        @if (Model.LatestProfileVisits.Any())
+                        {
+                            foreach (var item in Model.LatestProfileVisits)
+                            {
+                                <a href="/Profile/Details/@item.VisitorUser.Id">
+
+                                    <li>
+                                        @String.Concat(item.VisitorUser.FirstName, " ", item.VisitorUser.LastName)
+                                    </li>
+                                </a>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
     </div>
 
 
@@ -68,7 +99,7 @@
             </div>
         </div>
 
-        @if(Model.MessageItems.Any())
+        @if (Model.MessageItems.Any())
         {
             <ul>
                 @foreach (var item in Model.MessageItems)
@@ -87,42 +118,14 @@
 
     </div>
 
-    </div>
 
+
+
+
+    <input type="hidden" id="ProfileUserId" value="@Model.User.Id" />
+    <input type="hidden" id="VisitorUserId" value="@User.Identity.GetUserId()" />
 </div>
-<p>
-    @Html.ActionLink("Back to Home", "Index", "Home")
-</p>
 
-@if (Model.User.Id == User.Identity.GetUserId())
-{
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
-    </p>
-
-    <div class="card border-secondary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Latest five visitors</div>
-        <div class="card-body">
-            <ul style="list-style-type:none">
-                @if (Model.LatestProfileVisits.Any())
-                {
-                    foreach (var item in Model.LatestProfileVisits)
-                    {
-                        <a href="/Profile/Details/@item.VisitorUser.Id">
-
-                            <li>
-                                @String.Concat(item.VisitorUser.FirstName, " ", item.VisitorUser.LastName)
-                            </li>
-                        </a>
-                    }
-                }
-            </ul>
-        </div>
-    </div>
-}
-
-<input type="hidden" id="ProfileUserId" value="@Model.User.Id" />
-<input type="hidden" id="VisitorUserId" value="@User.Identity.GetUserId()" />
 
 
 
@@ -138,7 +141,7 @@
 
             $('#SendMessage').click(function (ev) {
                 ev.preventDefault();
-           
+
                 var Message = $('#new-message').val();
                 console.log(Message);
                 var Sender = $('#ProfileUserId').val();
@@ -155,6 +158,6 @@
             });
         });
 
-       
+
     </script>
 }
