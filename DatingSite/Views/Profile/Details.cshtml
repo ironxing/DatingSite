@@ -85,13 +85,13 @@
 
 
     <div class="col-lg-6 offset-lg-1">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog col-lg-6" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Modal title</h5>
                 </div>
                 <div class="modal-body">
-                    <input type="text" required id="new-message" />
+                    <textarea rows="3" cols="70" id="new-message"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="SendMessage" class="btn btn-primary">Post Message</button>
@@ -107,20 +107,16 @@
                     <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">From @String.Concat(item.MessageSender.FirstName, " ", item.MessageSender.LastName)</h5>
-                            <small class="text-muted">item.messageTime</small>
+                            <small class="text-muted"></small>
                         </div>
                         <p class="mb-1">@item.Text</p>
-                        <small class="text-muted">Donec id elit non mi porta.</small>
+                        <small class="text-muted">Sent: @item.messageTime</small>
                     </li>
                 }
             </ul>
         }
 
     </div>
-
-
-
-
 
     <input type="hidden" id="ProfileUserId" value="@Model.User.Id" />
     <input type="hidden" id="VisitorUserId" value="@User.Identity.GetUserId()" />
@@ -143,14 +139,13 @@
                 ev.preventDefault();
 
                 var Message = $('#new-message').val();
-                console.log(Message);
-                var Sender = $('#ProfileUserId').val();
-                var Reciever = $('#VisitorUserId').val();
+                var SenderId = $('#VisitorUserId').val(); 
+                var RecieverId = $('#ProfileUserId').val();
 
                 $('#new-message').val("");
 
                 $.get('/API/Message/Message/Add?message='
-                    + Message + '&sender=' + Sender + '&reciever=' + Reciever,
+                    + Message + '&senderId=' + SenderId + '&recieverId=' + RecieverId,
                     function () {
                         window.location.reload();
                     }

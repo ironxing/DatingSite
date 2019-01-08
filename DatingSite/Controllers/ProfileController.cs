@@ -48,7 +48,7 @@ namespace DatingSite.Controllers
                                 .OrderByDescending(p => p.VisitDateTime)
                                 .Take(5).ToList(),
                 MessageItems = _dbcontext.MessageItems
-                               .Where(m => m.ProfileUserId == Id)
+                               .Where(m => m.MessageReceiverId == Id)
                                .OrderByDescending(m => m.messageTime)
                                .Take(5).ToList()
             });
@@ -95,7 +95,6 @@ namespace DatingSite.Controllers
             else
             {
                 var userInDb = _dbcontext.Users.Single(u => u.Id == User.Id);
-                //Mapper.Map(User, userInDb);
                 userInDb.FirstName = User.FirstName;
                 userInDb.LastName = User.LastName;
                 userInDb.Description = User.Description;

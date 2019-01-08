@@ -21,14 +21,14 @@ namespace DatingSite.Controllers.APIControllers
 
         [Route("Message/Add")]
         [HttpGet]
-        public void AddMessage(string sender, string reciever, string message)
+        public void AddMessage(string senderId, string recieverId, string message)
         {
             var DateTimeNow = DateTime.Now;
             _dbcontext.MessageItems.Add(new MessageItem
             {
                 messageTime = DateTimeNow,
-                ProfileUserId = reciever,
-                MessageSenderId = sender,
+                MessageReceiverId = recieverId,
+                MessageSenderId = senderId,
                 Text = message
             });
             _dbcontext.SaveChanges();

@@ -13,8 +13,8 @@ namespace DatingSite.Models
 
         public DateTime messageTime { get; set; }
 
-        public string ProfileUserId { get; set; }
-        public virtual ApplicationUser ProfileUser { get; set; }
+        public string MessageReceiverId { get; set; }
+        public virtual ApplicationUser MessageReceiver { get; set; }
 
         public string MessageSenderId { get; set; }
         public virtual ApplicationUser MessageSender { get; set; }

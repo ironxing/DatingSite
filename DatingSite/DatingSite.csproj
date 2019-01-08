@@ -248,6 +248,10 @@
     <Compile Include="Migrations\201901071410570_AddMessageModel.Designer.cs">
       <DependentUpon>201901071410570_AddMessageModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901080846454_ChangedMessageItemModelUserName.cs" />
+    <Compile Include="Migrations\201901080846454_ChangedMessageItemModelUserName.Designer.cs">
+      <DependentUpon>201901080846454_ChangedMessageItemModelUserName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DatingSiteDBinitializer.cs" />
@@ -380,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901071410570_AddMessageModel.resx">
       <DependentUpon>201901071410570_AddMessageModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901080846454_ChangedMessageItemModelUserName.resx">
+      <DependentUpon>201901080846454_ChangedMessageItemModelUserName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
