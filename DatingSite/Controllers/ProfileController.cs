@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Drawing;
 using DatingSite.Models.ViewModels;
+using System.Xml.Serialization;
 
 namespace DatingSite.Controllers
 {
@@ -218,6 +219,108 @@ namespace DatingSite.Controllers
                 Friends = friends,
                 FriendRequests = friendRequests
             });
+        }
+
+        public class XmlResult : ActionResult
+        {
+            private readonly object _data;
+            public XmlResult(object data)
+            {
+                _data = data;
+            }
+
+            public override void ExecuteResult(ControllerContext context)
+            {
+                if (_data != null)
+                {
+                    var response = context.HttpContext.Response;
+                    response.ContentType = "text/xml";
+                    var serializer = new XmlSerializer(_data.GetType());
+                    serializer.Serialize(response.OutputStream, _data);
+                }
+            }
+        }
+
+        public ActionResult ExportUserData()
+        {
+            var UserId = User.Identity.GetUserId();
+            var user = _dbcontext.Users.SingleOrDefault(u => u.Id == UserId);
+
+            //latest vists to logged-in user's profile
+            var latestProfileVisits = _dbcontext.ProfileVisits
+                            .Where(p => p.ProfileUserId == UserId && p.VisitorUserId != UserId)
+                            .OrderByDescending(p => p.VisitDateTime)
+                            .Take(5).ToList();
+
+            var exporProfileVisits = new List<ExporProfileVisit>();
+
+
+            foreach (var item in latestProfileVisits)
+            {
+                exporProfileVisits.Add(new ExporProfileVisit
+                {
+                    VisitorUserUserName = item.VisitorUser.UserName,
+                    VisitDateTime = item.VisitDateTime
+                });
+            };
+
+
+            //messages to and from logged-in user
+            var messageItems = _dbcontext.MessageItems
+                           .Where(m => m.MessageReceiverId == UserId || m.MessageSenderId == UserId)
+                           .OrderByDescending(m => m.messageTime)
+                           .Take(5).ToList();
+
+            var exportMessageViewModels = new List<ExportMessageViewModel>();
+
+            foreach (var item in messageItems)
+            {
+                exportMessageViewModels.Add(new ExportMessageViewModel
+                {
+                    MessageSenderUserName = item.MessageSender.UserName,
+                    MessageReceiverUserName = item.MessageReceiver.UserName,
+                    MessageTime = item.messageTime,
+                    Text= item.Text
+                });
+            };
+
+            //Friend list
+            var friendsModels = _dbcontext.FriendsModels.Where(f => f.ProfileOwnerId == UserId || f.ProfileVisitorId == UserId && f.Friends).ToList();
+                
+            var exportFriends = new List<ExportFriend>();
+            string friendUserName;
+
+            foreach (var item in friendsModels)
+            {
+                if(item.ProfileOwnerId == UserId)
+                {
+                    friendUserName = item.ProfileVisitor.UserName;
+                }
+                else
+                {
+                    friendUserName = item.ProfileOwner.UserName;
+                }
+
+                exportFriends.Add(new ExportFriend
+                {
+                    FriendUserName = friendUserName
+                });
+            };
+
+
+
+            var exportUserDataViewModel = new ExportUserDataViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Description = user.Description,
+                Email = user.Email,
+
+                ExportMessageViewModels = exportMessageViewModels,
+                ExporProfileVisits = exporProfileVisits,
+                ExportFriends = exportFriends
+            };
+            return new XmlResult(exportUserDataViewModel);
         }
     }
 }

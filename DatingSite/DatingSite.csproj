@@ -272,6 +272,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MessageItem.cs" />
     <Compile Include="Models\ProfileVisit.cs" />
+    <Compile Include="Models\ViewModels\ExportUserDataViewModel.cs" />
     <Compile Include="Models\ViewModels\FriendsFriendRequestsViewModel.cs" />
     <Compile Include="Models\ViewModels\LayoutViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileDetailViewModel.cs" />

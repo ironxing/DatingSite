@@ -46,26 +46,26 @@
 
         @if (Model.User.Id != User.Identity.GetUserId())
         {
-        <div class="friends">
-            @if (Model.FriendStatus && !Model.Friends)
-            {
-                <div id="PFR" class="arefriendsdiv alert alert-warning">
-                    <p>Pending friend request.</p>
-                </div>
-            }
-            else if (!Model.FriendStatus && !Model.Friends)
-            {
-                <div class="arefriendsdiv afc hide alert alert-info">
-                    <button type="button" class="btn btn-primary" id="AddFriend">Add Friend</button>
-                </div>
-            }
-            else if (Model.Friends && Model.FriendStatus)
-            {
-                <div id="FF" class="arefriendsdiv alert alert-success">
-                    <span class="glyphicon glyphicon-thumbs-up"></span> friends
-                </div>
-            }
-        </div>
+            <div class="friends">
+                @if (Model.FriendStatus && !Model.Friends)
+                {
+                    <div id="PFR" class="arefriendsdiv alert alert-warning">
+                        <p>Pending friend request.</p>
+                    </div>
+                }
+                else if (!Model.FriendStatus && !Model.Friends)
+                {
+                    <div class="arefriendsdiv afc hide alert alert-info">
+                        <button type="button" class="btn btn-primary" id="AddFriend">Add Friend</button>
+                    </div>
+                }
+                else if (Model.Friends && Model.FriendStatus)
+                {
+                    <div id="FF" class="arefriendsdiv alert alert-success">
+                        <span class="glyphicon glyphicon-thumbs-up"></span> friends
+                    </div>
+                }
+            </div>
         }
 
 
@@ -95,6 +95,11 @@
                     </ul>
                 </div>
             </div>
+
+            using (Html.BeginForm("ExportUserData", "Profile", null, FormMethod.Post))
+            {
+                <input type="submit" value="Export user data" class="btn btn-secondary" />
+            }
         }
     </div>
 
