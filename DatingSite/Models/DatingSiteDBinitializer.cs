@@ -165,6 +165,188 @@ namespace DatingSite.Models
                 ImagePath = "Avatar10.png"
             };
             UserManager.Create(user10);
+
+            context.ProfileVisits.Add(new ProfileVisit
+            {
+                VisitDateTime = Convert.ToDateTime("2019-01-07 11:07:10"),
+                ProfileUserId = user1.Id,
+                VisitorUserId = user2.Id
+            });
+
+            context.ProfileVisits.Add(new ProfileVisit
+            {
+                VisitDateTime = Convert.ToDateTime("2019-01-08 11:07:10"),
+                ProfileUserId = user3.Id,
+                VisitorUserId = user2.Id
+            });
+
+            context.ProfileVisits.Add(new ProfileVisit
+            {
+                VisitDateTime = Convert.ToDateTime("2019-01-06 11:07:10"),
+                ProfileUserId = user1.Id,
+                VisitorUserId = user5.Id
+            });
+
+            context.ProfileVisits.Add(new ProfileVisit
+            {
+                VisitDateTime = Convert.ToDateTime("2019-01-05 11:07:10"),
+                ProfileUserId = user7.Id,
+                VisitorUserId = user2.Id
+            });
+
+            context.MessageItems.Add(new MessageItem
+            {
+                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                MessageReceiverId = user1.Id,
+                MessageSenderId = user2.Id,
+                Text = "Men gud vad fin du är!!"
+            });
+
+            context.MessageItems.Add(new MessageItem
+            {
+                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                MessageReceiverId = user2.Id,
+                MessageSenderId = user1.Id,
+                Text = "Hejj Hej!!"
+            });
+
+            context.MessageItems.Add(new MessageItem
+            {
+                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                MessageReceiverId = user3.Id,
+                MessageSenderId = user8.Id,
+                Text = "Men gud vad fin du är!!"
+            });
+
+            context.MessageItems.Add(new MessageItem
+            {
+                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                MessageReceiverId = user4.Id,
+                MessageSenderId = user3.Id,
+                Text = "hallå!!"
+            });
+
+            context.MessageItems.Add(new MessageItem
+            {
+                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                MessageReceiverId = user5.Id,
+                MessageSenderId = user4.Id,
+                Text = "Men gud vad fin du är!!"
+            });
+
+            context.MessageItems.Add(new MessageItem
+            {
+                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                MessageReceiverId = user6.Id,
+                MessageSenderId = user5.Id,
+                Text = "Är du glad?"
+            });
+
+            context.MessageItems.Add(new MessageItem
+            {
+                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                MessageReceiverId = user7.Id,
+                MessageSenderId = user6.Id,
+                Text = "Va lite glad!!"
+            });
+
+            context.MessageItems.Add(new MessageItem
+            {
+                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                MessageReceiverId = user8.Id,
+                MessageSenderId = user2.Id,
+                Text = "Men gud vad fin du är!!"
+            });
+
+            context.MessageItems.Add(new MessageItem
+            {
+                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                MessageReceiverId = user9.Id,
+                MessageSenderId = user2.Id,
+                Text = "Men gud vad fin du är!!"
+            });
+
+            context.MessageItems.Add(new MessageItem
+            {
+                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                MessageReceiverId = user10.Id,
+                MessageSenderId = user2.Id,
+                Text = "Finis!"
+            });
+
+            context.FriendsModels.Add(new FriendsModel
+            {
+                FriendRequest = true,
+                ProfileOwnerId = user1.Id,
+                ProfileVisitorId = user2.Id
+
+            });
+
+            context.FriendsModels.Add(new FriendsModel
+            {
+                FriendRequest = true,
+                ProfileOwnerId = user2.Id,
+                ProfileVisitorId = user3.Id
+
+            });
+
+            context.FriendsModels.Add(new FriendsModel
+            {
+                FriendRequest = true,
+                ProfileOwnerId = user4.Id,
+                ProfileVisitorId = user2.Id
+
+            });
+
+            context.FriendsModels.Add(new FriendsModel
+            {
+                FriendRequest = true,
+                ProfileOwnerId = user5.Id,
+                ProfileVisitorId = user2.Id
+
+            });
+
+            context.FriendsModels.Add(new FriendsModel
+            {
+                FriendRequest = true,
+                ProfileOwnerId = user6.Id,
+                ProfileVisitorId = user2.Id
+
+            });
+
+            context.FriendsModels.Add(new FriendsModel
+            {
+                Friends = true,
+                ProfileOwnerId = user7.Id,
+                ProfileVisitorId = user2.Id
+
+            });
+
+            context.FriendsModels.Add(new FriendsModel
+            {
+                Friends = true,
+                ProfileOwnerId = user8.Id,
+                ProfileVisitorId = user2.Id
+
+            });
+
+            context.FriendsModels.Add(new FriendsModel
+            {
+                Friends = true,
+                ProfileOwnerId = user9.Id,
+                ProfileVisitorId = user2.Id
+
+            });
+            context.FriendsModels.Add(new FriendsModel
+            {
+                Friends = true,
+                ProfileOwnerId = user10.Id,
+                ProfileVisitorId = user2.Id
+
+            });
+            base.Seed(context);
+
+
         }
     }
 }

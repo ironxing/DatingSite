@@ -189,7 +189,6 @@
     <Compile Include="Controllers\APIControllers\FriendsAPIController.cs" />
     <Compile Include="Controllers\APIControllers\MessageAPIController.cs" />
     <Compile Include="Controllers\APIControllers\ProfileVisitAPIController.cs" />
-    <Compile Include="Controllers\ApplicationMasterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -341,7 +340,7 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\SearchResult.cshtml" />
-    <Content Include="Views\Shared\_FriendRequestDropDown.cshtml" />
+    <Content Include="Views\Profile\FriendRequestPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

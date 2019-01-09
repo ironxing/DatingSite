@@ -20,6 +20,5 @@ namespace DatingSite.Models
 
         public string ProfileVisitorId{ get; set; }
         public virtual ApplicationUser ProfileVisitor { get; set; }
-
     }
 }

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace DatingSite.Controllers
 {
-    public class HomeController : ApplicationMasterController
+    public class HomeController : Controller
     {
         private ApplicationDbContext _dbcontext;
 

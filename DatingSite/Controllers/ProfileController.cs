@@ -10,8 +10,15 @@ using DatingSite.Models.ViewModels;
 
 namespace DatingSite.Controllers
 {
-    public class ProfileController : ApplicationMasterController
+    public class ProfileController : Controller
     {
+        public ApplicationDbContext _dbcontext;
+
+        public ProfileController()
+        {
+            _dbcontext = new ApplicationDbContext();
+        }
+
         protected override void Dispose(bool disposing)
         {
             _dbcontext.Dispose();
@@ -185,6 +192,17 @@ namespace DatingSite.Controllers
             List<ApplicationUser> SearchResult = EmailMatched.Union(FirstNameMatched).Union(LastNameMatched).ToList();
 
             return View(SearchResult);
+        }
+
+        public ActionResult FriendRequestPartialView()
+        {
+            var loggedInUserId = User.Identity.GetUserId();
+
+            var nrFriendRequests = _dbcontext.FriendsModels
+                                .Where(f => !f.Friends && f.FriendRequest && f.ProfileOwnerId == loggedInUserId)
+                                .Count();
+            ViewBag.NrFriendRequests = nrFriendRequests;
+            return PartialView();
         }
     }
 }
