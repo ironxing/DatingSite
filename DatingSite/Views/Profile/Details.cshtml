@@ -56,7 +56,7 @@
             else if (!Model.FriendStatus && !Model.Friends)
             {
                 <div class="arefriendsdiv afc hide alert alert-info">
-                    <button type="button" class="btn btn-primary" id="AF">Add Friend</button>
+                    <button type="button" class="btn btn-primary" id="AddFriend">Add Friend</button>
                 </div>
             }
             else if (Model.Friends && Model.FriendStatus)
@@ -67,7 +67,6 @@
             }
         </div>
         }
-
 
 
         @if (Model.User.Id == User.Identity.GetUserId())
@@ -117,19 +116,37 @@
             </div>
         </div>
 
+        <div id="confirmBox">
+            <div class="message"></div>
+            <button class="yes">Yes</button>
+            <button class="no">No</button>
+        </div>
+
         @if (Model.MessageItems.Any())
         {
             <ul>
                 @foreach (var item in Model.MessageItems)
                 {
-                    <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">From @String.Concat(item.MessageSender.FirstName, " ", item.MessageSender.LastName)</h5>
-                            <small class="text-muted"></small>
-                        </div>
-                        <p class="mb-1">@item.Text</p>
-                        <small class="text-muted">Sent: @item.messageTime</small>
-                    </li>
+                <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">From @String.Concat(item.MessageSender.FirstName, " ", item.MessageSender.LastName)</h5>
+
+                    </div>
+                    <p class="mb-1">@item.Text</p>
+                    <small class="text-muted">Sent: @item.messageTime</small>
+                    @if (Model.User.Id == User.Identity.GetUserId())
+                    {
+                    <button class="delete-msg btn btn-outline-secondary btn-sm" onclick='DoConfirmDeleteMsg("Are you sure you want to delete the message?", function yes()
+                                             {
+                                                DeleteMsg(@item.id)
+                                            }, function no()
+                                            {
+
+                                            });'>
+                        Delete
+                    </button>
+                    }
+                </li>
                 }
             </ul>
         }
@@ -171,23 +188,40 @@
                 );
             });
 
-            $('#AF').click(function (ev) {
+            $('#AddFriend').click(function (ev) {
                 ev.preventDefault();
 
                 var profileOwnerId = $('#ProfileUserId').val();
 
                 $.get('/API/Friends/Friend/ADD?Id=' + profileOwnerId,
-
                     function () {
                         window.location.reload();
-                    }
-                );
+                    });
+            });
+                
 
-            }
-            );
-
+           
+            
         });
 
+        function DoConfirmDeleteMsg(msg, yesFn, noFn) {
+            var confirmBox = $("#confirmBox");
+            confirmBox.find(".message").text(msg);
+            confirmBox.find(".yes,.no").unbind().click(function () {
+                confirmBox.hide();
+            });
+            confirmBox.find(".yes").click(yesFn);
+            confirmBox.find(".no").click(noFn);
+            confirmBox.show();
+        }
+        
+        function DeleteMsg(messageId) {
+            $.ajax({
+                url: '/api/Message/Message/Delete?MessageId=' + messageId,
+                type: 'DELETE'
+            });
 
-    </script>
+            location.reload();
+        }
+ </script>
 }
