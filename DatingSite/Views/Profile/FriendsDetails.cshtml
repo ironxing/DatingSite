@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNet.Identity
+@model DatingSite.Models.ViewModels.FriendsFriendRequestsViewModel
+
+
+@{
+    ViewBag.Title = "FriendDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FriendDetails</h2>
+
+<div class="col-lg-5">
+    <table class="table table-hover">
+        <tbody>
+            
+            <tr class="table-primary">
+                <th scope="row">Friends</th>
+            </tr>
+            @foreach (var item in @Model.Friends)
+            {
+            <tr class="table-success">
+                @if (item.ProfileOwner.Id != User.Identity.GetUserId())
+                {
+                    <td>
+                        @item.ProfileOwner.FirstName
+                        <span class="badge badge-danger">DELETE</span>
+                    </td>
+                }
+
+                @if (item.ProfileVisitor.Id != User.Identity.GetUserId())
+                {
+                    <td>
+                        @item.ProfileVisitor.FirstName
+                        <span class="badge badge-danger">DELETE</span>
+                    </td>
+                }
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<div class="col-lg-5">
+
+    <table class="table table-hover">
+
+        <tbody>
+            <tr class="table-primary">
+                <th scope="row">Friend Requests</th>
+
+            </tr>
+
+
+            @foreach (var item in @Model.FriendRequests)
+            {
+                <tr class="table-warning">
+                    <td>
+                        @item.ProfileVisitor.FirstName
+                        <span class="badge badge-success">ACCEPT</span>
+                        <span class="badge badge-danger">DECLINE</span>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+

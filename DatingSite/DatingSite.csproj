@@ -272,6 +272,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MessageItem.cs" />
     <Compile Include="Models\ProfileVisit.cs" />
+    <Compile Include="Models\ViewModels\FriendsFriendRequestsViewModel.cs" />
     <Compile Include="Models\ViewModels\LayoutViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileDetailViewModel.cs" />
     <Compile Include="Models\ViewModels\VisitViewModels.cs" />
@@ -341,6 +342,7 @@
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\SearchResult.cshtml" />
     <Content Include="Views\Profile\FriendRequestPartialView.cshtml" />
+    <Content Include="Views\Profile\FriendsDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

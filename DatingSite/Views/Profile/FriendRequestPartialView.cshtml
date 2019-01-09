@@ -1,13 +1,14 @@
-﻿
-<button type="button" class="btn btn-outline-secondary">
-    Friends
-    @if (@ViewBag.NrFriendRequests == 1)
-    {
-        <span class="badge badge-primary badge-pill">@ViewBag.NrFriendRequests Request</span>
-    }
-    else if (@ViewBag.NrFriendRequests > 1)
-    {
-        <span class="badge badge-primary badge-pill">@ViewBag.NrFriendRequests Requests</span>
+﻿<a class="card-link" href="/Profile/FriendsDetails">
+    <button type="button" class="btn btn-outline-secondary">
+        Friends
+        @if (@ViewBag.NrFriendRequests == 1)
+        {
+            <span class="badge badge-primary badge-pill">@ViewBag.NrFriendRequests Request</span>
+        }
+        else if (@ViewBag.NrFriendRequests > 1)
+        {
+            <span class="badge badge-primary badge-pill">@ViewBag.NrFriendRequests Requests</span>
 
-    }
-</button>
+        }
+    </button>
+</a>

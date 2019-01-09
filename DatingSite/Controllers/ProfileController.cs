@@ -204,5 +204,20 @@ namespace DatingSite.Controllers
             ViewBag.NrFriendRequests = nrFriendRequests;
             return PartialView();
         }
+        
+        public ActionResult FriendsDetails()
+        {
+            var LoggedInUserId = User.Identity.GetUserId();
+
+            var friends = _dbcontext.FriendsModels.Where(x => (x.ProfileVisitorId == LoggedInUserId || x.ProfileOwnerId == LoggedInUserId) && x.Friends).ToList();
+
+            var friendRequests = _dbcontext.FriendsModels.Where(x => x.ProfileOwnerId == LoggedInUserId && !x.Friends && x.FriendRequest).ToList();
+            
+            return View(new FriendsFriendRequestsViewModel
+            {
+                Friends = friends,
+                FriendRequests = friendRequests
+            });
+        }
     }
 }
