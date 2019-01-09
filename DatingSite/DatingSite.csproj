@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -184,8 +185,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\APIControllers\DemoController.cs" />
+    <Compile Include="Controllers\APIControllers\FriendsAPIController.cs" />
     <Compile Include="Controllers\APIControllers\MessageAPIController.cs" />
     <Compile Include="Controllers\APIControllers\ProfileVisitAPIController.cs" />
+    <Compile Include="Controllers\ApplicationMasterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -252,14 +256,26 @@
     <Compile Include="Migrations\201901080846454_ChangedMessageItemModelUserName.Designer.cs">
       <DependentUpon>201901080846454_ChangedMessageItemModelUserName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901081415201_AddFriendModel.cs" />
+    <Compile Include="Migrations\201901081415201_AddFriendModel.Designer.cs">
+      <DependentUpon>201901081415201_AddFriendModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901081423424_addFriendsModelAGain.cs" />
+    <Compile Include="Migrations\201901081423424_addFriendsModelAGain.Designer.cs">
+      <DependentUpon>201901081423424_addFriendsModelAGain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DatingSiteDBinitializer.cs" />
+    <Compile Include="Models\FriendsModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MessageItem.cs" />
     <Compile Include="Models\ProfileVisit.cs" />
+    <Compile Include="Models\ViewModels\LayoutViewModel.cs" />
     <Compile Include="Models\ViewModels\ProfileDetailViewModel.cs" />
+    <Compile Include="Models\ViewModels\VisitViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -325,9 +341,13 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\SearchResult.cshtml" />
+    <Content Include="Views\Shared\_FriendRequestDropDown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ApplicationMaster\" />
+    <Folder Include="Views\Layout\" />
+    <Folder Include="Views\PartialView\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -387,6 +407,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901080846454_ChangedMessageItemModelUserName.resx">
       <DependentUpon>201901080846454_ChangedMessageItemModelUserName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081415201_AddFriendModel.resx">
+      <DependentUpon>201901081415201_AddFriendModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081423424_addFriendsModelAGain.resx">
+      <DependentUpon>201901081423424_addFriendsModelAGain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

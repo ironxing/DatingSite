@@ -17,46 +17,63 @@
                 <dt>
                     @Html.DisplayNameFor(model => model.User.FirstName)
                 </dt>
-
                 <dd>
                     @Html.DisplayFor(model => model.User.FirstName)
                 </dd>
-
                 <dt>
                     @Html.DisplayNameFor(model => model.User.LastName)
                 </dt>
-
                 <dd>
                     @Html.DisplayFor(model => model.User.LastName)
                 </dd>
-
                 <dt>
                     @Html.DisplayNameFor(model => model.User.Email)
                 </dt>
-
                 <dd>
                     @Html.DisplayFor(model => model.User.Email)
                 </dd>
-
                 <dt>
                     @Html.DisplayNameFor(model => model.User.Description)
                 </dt>
-
                 <p>
                     @Html.DisplayFor(model => model.User.Description)
                 </p>
-
             </div>
         </dl>
-
         <p>
             @Html.ActionLink("Back to Home", "Index", "Home")
         </p>
+
+        @if (Model.User.Id != User.Identity.GetUserId())
+        {
+        <div class="friends">
+            @if (Model.FriendStatus && !Model.Friends)
+            {
+                <div id="PFR" class="arefriendsdiv alert alert-warning">
+                    <p>Pending friend request.</p>
+                </div>
+            }
+            else if (!Model.FriendStatus && !Model.Friends)
+            {
+                <div class="arefriendsdiv afc hide alert alert-info">
+                    <button type="button" class="btn btn-primary" id="AF">Add Friend</button>
+                </div>
+            }
+            else if (Model.Friends && Model.FriendStatus)
+            {
+                <div id="FF" class="arefriendsdiv alert alert-success">
+                    <span class="glyphicon glyphicon-thumbs-up"></span> friends
+                </div>
+            }
+        </div>
+        }
 
 
 
         @if (Model.User.Id == User.Identity.GetUserId())
         {
+
+
             <p>
                 @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
             </p>
@@ -70,7 +87,6 @@
                             foreach (var item in Model.LatestProfileVisits)
                             {
                                 <a href="/Profile/Details/@item.VisitorUser.Id">
-
                                     <li>
                                         @String.Concat(item.VisitorUser.FirstName, " ", item.VisitorUser.LastName)
                                     </li>
@@ -82,6 +98,8 @@
             </div>
         }
     </div>
+
+   
 
 
     <div class="col-lg-6 offset-lg-1">
@@ -135,6 +153,7 @@
             $.get('/API/ProfileVisits/VISIT/Add?profileUserId='
                 + ProfileUserId + '&visitorUserId=' + VisitorUserId)
 
+
             $('#SendMessage').click(function (ev) {
                 ev.preventDefault();
 
@@ -151,6 +170,22 @@
                     }
                 );
             });
+
+            $('#AF').click(function (ev) {
+                ev.preventDefault();
+
+                var profileOwnerId = $('#ProfileUserId').val();
+
+                $.get('/API/Friends/Friend/ADD?Id=' + profileOwnerId,
+
+                    function () {
+                        window.location.reload();
+                    }
+                );
+
+            }
+            );
+
         });
 
 

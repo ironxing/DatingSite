@@ -10,15 +10,8 @@ using DatingSite.Models.ViewModels;
 
 namespace DatingSite.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : ApplicationMasterController
     {
-        private ApplicationDbContext _dbcontext;
-
-        public ProfileController()
-        {
-            _dbcontext = new ApplicationDbContext();
-        }
-
         protected override void Dispose(bool disposing)
         {
             _dbcontext.Dispose();
@@ -35,10 +28,31 @@ namespace DatingSite.Controllers
         [Authorize]
         public ActionResult Details(string Id)
         {
-            //var userId = User.Identidy.GetUserId();
+            var VisitorId = User.Identity.GetUserId();
+
+            var Friendship = _dbcontext.FriendsModels.FirstOrDefault(f => f.ProfileOwnerId == Id && f.ProfileVisitorId == VisitorId);
+
+
             var user = _dbcontext.Users.SingleOrDefault(u => u.Id == Id);
             if (user == null)
                 return HttpNotFound();
+
+            bool friendRequest;
+            bool friendsCheck;
+
+            if (Friendship != null)
+
+
+            {
+                friendRequest = Friendship.FriendRequest;
+                friendsCheck = Friendship.Friends;
+            }
+            else
+            {
+                friendRequest = false;
+                friendsCheck = false;
+
+            }
 
             return View(new ProfileDetailViewModel
             {
@@ -50,7 +64,10 @@ namespace DatingSite.Controllers
                 MessageItems = _dbcontext.MessageItems
                                .Where(m => m.MessageReceiverId == Id)
                                .OrderByDescending(m => m.messageTime)
-                               .Take(5).ToList()
+                               .Take(5).ToList(),
+                FriendStatus = friendRequest,
+                Friends = friendsCheck
+
             });
         }
 

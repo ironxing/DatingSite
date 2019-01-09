@@ -34,5 +34,18 @@ namespace DatingSite.Controllers.APIControllers
             _dbcontext.SaveChanges();
         }
 
+        [Route("Message/Delete")]
+        [HttpDelete]
+        public void DeleteMessage(int MessageId)
+        {
+            var messageItem = _dbcontext.MessageItems.SingleOrDefault(m => m.id == MessageId);
+            
+            if(messageItem!= null)
+            {
+                _dbcontext.MessageItems.Remove(messageItem);
+                _dbcontext.SaveChanges();
+            }
+        }
+
     }
 }

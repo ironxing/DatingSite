@@ -33,6 +33,7 @@ namespace DatingSite.Models
     {
         public DbSet<ProfileVisit> ProfileVisits { get; set; }
         public DbSet<MessageItem> MessageItems { get; set; }
+        public DbSet<FriendsModel> FriendsModels { get; set; }
 
         public ApplicationDbContext()
             : base("DatingSiteDB", throwIfV1Schema: false)
