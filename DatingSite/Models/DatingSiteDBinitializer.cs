@@ -28,7 +28,10 @@ namespace DatingSite.Models
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar1.png",
-                IsActive= true
+                IsActive= true,
+                Gender = "Female",
+                LookingForGender = "Male",
+                BirthDate = Convert.ToDateTime("1960-01-01 11:07:10")
             };
             UserManager.Create(user1);
 
@@ -44,7 +47,10 @@ namespace DatingSite.Models
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar2.png",
-                IsActive = true
+                IsActive = true,
+                Gender = "Male",
+                LookingForGender = "Male",
+                BirthDate = Convert.ToDateTime("1970-01-01 11:07:10")
             };
             UserManager.Create(user2);
 
@@ -60,7 +66,10 @@ namespace DatingSite.Models
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar3.png",
-                IsActive = true
+                IsActive = true,
+                Gender = "Female",
+                LookingForGender = "Female",
+                BirthDate = Convert.ToDateTime("1980-01-01 11:07:10")
             };
             UserManager.Create(user3);
 
@@ -76,7 +85,10 @@ namespace DatingSite.Models
                 "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus " +
                 "et magnis dis parturient montes, nascetur ridiculus mus. Donec quam",
                 ImagePath = "Avatar4.png",
-                IsActive = false
+                IsActive = false,
+                Gender = "Female",
+                LookingForGender = "Male",
+                BirthDate = Convert.ToDateTime("1990-01-01 11:07:10")
             };
             UserManager.Create(user4);
 
@@ -92,7 +104,10 @@ namespace DatingSite.Models
                 "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus " +
                 "et magnis dis parturient montes, nascetur ridiculus mus. Donec quam",
                 ImagePath = "Avatar5.png",
-                IsActive = true
+                IsActive = true,
+                Gender = "Male",
+                LookingForGender = "Male",
+                BirthDate = Convert.ToDateTime("1991-01-01 11:07:10")
             };
             UserManager.Create(user5);
 
@@ -108,7 +123,10 @@ namespace DatingSite.Models
                 "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus " +
                 "et magnis dis parturient montes, nascetur ridiculus mus. Donec quam",
                 ImagePath = "Avatar6.png",
-                IsActive = true
+                IsActive = true,
+                Gender = "Female",
+                LookingForGender = "Male",
+                BirthDate = Convert.ToDateTime("1992-01-01 11:07:10")
             };
             UserManager.Create(user6);
 
@@ -124,7 +142,10 @@ namespace DatingSite.Models
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar7.png",
-                IsActive = true
+                IsActive = true,
+                Gender = "Male",
+                LookingForGender = "Female",
+                BirthDate = Convert.ToDateTime("1993-01-01 11:07:10")
             };
             UserManager.Create(user7);
 
@@ -140,7 +161,10 @@ namespace DatingSite.Models
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar8.png",
-                IsActive = true
+                IsActive = true,
+                Gender = "Female",
+                LookingForGender = "Male",
+                BirthDate = Convert.ToDateTime("1994-01-01 11:07:10")
             };
             UserManager.Create(user8);
 
@@ -156,7 +180,10 @@ namespace DatingSite.Models
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar9.png",
-                IsActive = true
+                IsActive = true,
+                Gender = "Female",
+                LookingForGender = "Male",
+                BirthDate = Convert.ToDateTime("1995-01-01 11:07:10")
             };
             UserManager.Create(user9);
 
@@ -172,41 +199,44 @@ namespace DatingSite.Models
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar10.png",
-                IsActive = true
+                IsActive = true,
+                Gender = "Male",
+                LookingForGender = "Female",
+                BirthDate = Convert.ToDateTime("1996-01-01 11:07:10")
             };
             UserManager.Create(user10);
 
             context.ProfileVisits.Add(new ProfileVisit
             {
-                VisitDateTime = Convert.ToDateTime("2019-01-07 11:07:10"),
+                VisitDateTime = Convert.ToDateTime("2019-01-01 11:07:10"),
                 ProfileUserId = user1.Id,
                 VisitorUserId = user2.Id
             });
 
             context.ProfileVisits.Add(new ProfileVisit
             {
-                VisitDateTime = Convert.ToDateTime("2019-01-08 11:07:10"),
+                VisitDateTime = Convert.ToDateTime("2019-01-02 11:07:10"),
                 ProfileUserId = user3.Id,
                 VisitorUserId = user2.Id
             });
 
             context.ProfileVisits.Add(new ProfileVisit
             {
-                VisitDateTime = Convert.ToDateTime("2019-01-06 11:07:10"),
+                VisitDateTime = Convert.ToDateTime("2019-01-03 11:07:10"),
                 ProfileUserId = user1.Id,
                 VisitorUserId = user5.Id
             });
 
             context.ProfileVisits.Add(new ProfileVisit
             {
-                VisitDateTime = Convert.ToDateTime("2019-01-05 11:07:10"),
+                VisitDateTime = Convert.ToDateTime("2019-01-04 11:07:10"),
                 ProfileUserId = user7.Id,
                 VisitorUserId = user2.Id
             });
 
             context.MessageItems.Add(new MessageItem
             {
-                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                messageTime = DateTime.Parse("2019-01-05 11:07:09"),
                 MessageReceiverId = user1.Id,
                 MessageSenderId = user2.Id,
                 Text = "Men gud vad fin du är!!"
@@ -214,7 +244,7 @@ namespace DatingSite.Models
 
             context.MessageItems.Add(new MessageItem
             {
-                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                messageTime = DateTime.Parse("2019-01-06 11:07:09"),
                 MessageReceiverId = user2.Id,
                 MessageSenderId = user1.Id,
                 Text = "Hejj Hej!!"
@@ -222,7 +252,7 @@ namespace DatingSite.Models
 
             context.MessageItems.Add(new MessageItem
             {
-                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                messageTime = DateTime.Parse("2019-01-07 11:07:09"),
                 MessageReceiverId = user3.Id,
                 MessageSenderId = user8.Id,
                 Text = "Men gud vad fin du är!!"
@@ -230,7 +260,7 @@ namespace DatingSite.Models
 
             context.MessageItems.Add(new MessageItem
             {
-                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                messageTime = DateTime.Parse("2019-01-08 11:07:09"),
                 MessageReceiverId = user4.Id,
                 MessageSenderId = user3.Id,
                 Text = "hallå!!"
@@ -246,7 +276,7 @@ namespace DatingSite.Models
 
             context.MessageItems.Add(new MessageItem
             {
-                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                messageTime = DateTime.Parse("2019-01-10 11:07:09"),
                 MessageReceiverId = user6.Id,
                 MessageSenderId = user5.Id,
                 Text = "Är du glad?"
@@ -254,7 +284,7 @@ namespace DatingSite.Models
 
             context.MessageItems.Add(new MessageItem
             {
-                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                messageTime = DateTime.Parse("2019-01-01 11:07:09"),
                 MessageReceiverId = user7.Id,
                 MessageSenderId = user6.Id,
                 Text = "Va lite glad!!"
@@ -262,7 +292,7 @@ namespace DatingSite.Models
 
             context.MessageItems.Add(new MessageItem
             {
-                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                messageTime = DateTime.Parse("2019-01-02 11:07:09"),
                 MessageReceiverId = user8.Id,
                 MessageSenderId = user2.Id,
                 Text = "Men gud vad fin du är!!"
@@ -270,7 +300,7 @@ namespace DatingSite.Models
 
             context.MessageItems.Add(new MessageItem
             {
-                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                messageTime = DateTime.Parse("2019-01-03 11:07:09"),
                 MessageReceiverId = user9.Id,
                 MessageSenderId = user2.Id,
                 Text = "Men gud vad fin du är!!"
@@ -278,7 +308,7 @@ namespace DatingSite.Models
 
             context.MessageItems.Add(new MessageItem
             {
-                messageTime = DateTime.Parse("2019-01-09 11:07:09"),
+                messageTime = DateTime.Parse("2019-01-04 11:07:09"),
                 MessageReceiverId = user10.Id,
                 MessageSenderId = user2.Id,
                 Text = "Finis!"
