@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ExportUserDataViewModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FirstName>Maria</FirstName>
+  <LastName>Andersson</LastName>
+  <Description>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam</Description>
+  <Email>MariaAndersson@hotmail.com</Email>
+  <ExporProfileVisits>
+    <ExporProfileVisit>
+      <VisitDateTime>2019-01-07T11:07:10</VisitDateTime>
+      <VisitorUserUserName>WilliamLarsson@hotmail.com</VisitorUserUserName>
+    </ExporProfileVisit>
+    <ExporProfileVisit>
+      <VisitDateTime>2019-01-06T11:07:10</VisitDateTime>
+      <VisitorUserUserName>KarlJohansson@hotmail.com</VisitorUserUserName>
+    </ExporProfileVisit>
+  </ExporProfileVisits>
+  <ExportMessageViewModels>
+    <ExportMessageViewModel>
+      <MessageSenderUserName>MariaAndersson@hotmail.com</MessageSenderUserName>
+      <MessageReceiverUserName>WilliamLarsson@hotmail.com</MessageReceiverUserName>
+      <MessageTime>2019-01-09T11:07:09</MessageTime>
+      <Text>Hejj Hej!!</Text>
+    </ExportMessageViewModel>
+    <ExportMessageViewModel>
+      <MessageSenderUserName>WilliamLarsson@hotmail.com</MessageSenderUserName>
+      <MessageReceiverUserName>MariaAndersson@hotmail.com</MessageReceiverUserName>
+      <MessageTime>2019-01-09T11:07:09</MessageTime>
+      <Text>Men gud vad fin du är!!</Text>
+    </ExportMessageViewModel>
+  </ExportMessageViewModels>
+  <ExportFriends>
+    <ExportFriend>
+      <FriendUserName>WilliamLarsson@hotmail.com</FriendUserName>
+    </ExportFriend>
+  </ExportFriends>
+</ExportUserDataViewModel>

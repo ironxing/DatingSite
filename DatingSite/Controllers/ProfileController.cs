@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using System.Drawing;
 using DatingSite.Models.ViewModels;
 using System.Xml.Serialization;
+using System.IO;
 
 namespace DatingSite.Controllers
 {
@@ -320,7 +321,19 @@ namespace DatingSite.Controllers
                 ExporProfileVisits = exporProfileVisits,
                 ExportFriends = exportFriends
             };
-            return new XmlResult(exportUserDataViewModel);
+
+            var txtFilePathName = HttpContext.Server.MapPath("~/XMLFiles/UserDataXML_") + user.FirstName + "_" + user.LastName + ".txt";
+
+            var xml_serializer = new System.Xml.Serialization.XmlSerializer(typeof(ExportUserDataViewModel));
+            //using (var s = System.IO.File.Open(@"C:\Users\Xing\Desktop\Temp\Temp2\XMLMVCtexttest.txt", System.IO.FileMode.Create))
+            using (var s = System.IO.File.Open(txtFilePathName, System.IO.FileMode.Create))
+            {
+                xml_serializer.Serialize(s, exportUserDataViewModel);
+                s.Flush();
+                s.Close();
+            }
+
+            return View();
         }
     }
 }
