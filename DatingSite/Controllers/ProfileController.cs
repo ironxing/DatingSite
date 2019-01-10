@@ -327,7 +327,6 @@ namespace DatingSite.Controllers
             var txtFilePathName = HttpContext.Server.MapPath("~/XMLFiles/UserDataXML_") + user.FirstName + "_" + user.LastName + ".txt";
 
             var xml_serializer = new System.Xml.Serialization.XmlSerializer(typeof(ExportUserDataViewModel));
-            //using (var s = System.IO.File.Open(@"C:\Users\Xing\Desktop\Temp\Temp2\XMLMVCtexttest.txt", System.IO.FileMode.Create))
             using (var s = System.IO.File.Open(txtFilePathName, System.IO.FileMode.Create))
             {
                 xml_serializer.Serialize(s, exportUserDataViewModel);

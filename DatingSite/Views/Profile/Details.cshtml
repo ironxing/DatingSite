@@ -70,20 +70,20 @@
 
 
         @if (Model.User.Id == User.Identity.GetUserId())
-        {   
+        {
             <p>
                 @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
             </p>
 
             if (Model.User.IsActive)
             {
-                    <input type="submit" value="Deactive Profile" class="toggle-user-active-status btn btn-secondary"/>
+                <input type="submit" value="Deactive Profile" class="toggle-user-active-status btn btn-secondary" />
             }
-            else if(!Model.User.IsActive)
-            {                
-                    <input type="submit" value="Reactive Profile" class="toggle-user-active-status btn btn-secondary"/>
+            else if (!Model.User.IsActive)
+            {
+                <input type="submit" value="Reactive Profile" class="toggle-user-active-status btn btn-secondary" />
             }
-            
+
             <div class="card border-secondary mb-3" style="max-width: 20rem;">
                 <div class="card-header">Latest five visitors</div>
                 <div class="card-body">
@@ -109,7 +109,7 @@
             }
         }
 
-    </div>   
+    </div>
 
 
     <div class="col-lg-6 offset-lg-1">
@@ -140,26 +140,26 @@
                 {
                     if (item.MessageSender.IsActive)
                     {
-                    <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">From @String.Concat(item.MessageSender.FirstName, " ", item.MessageSender.LastName)</h5>
+                        <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">From @String.Concat(item.MessageSender.FirstName, " ", item.MessageSender.LastName)</h5>
 
-                    </div>
-                    <p class="mb-1">@item.Text</p>
-                    <small class="text-muted">Sent: @item.messageTime</small>
-                    @if (Model.User.Id == User.Identity.GetUserId())
-                    {
-                    <button class="delete-msg btn btn-outline-secondary btn-sm" onclick='DoConfirmDeleteMsg("Are you sure you want to delete the message?", function yes()
+                            </div>
+                            <p class="mb-1">@item.Text</p>
+                            <small class="text-muted">Sent: @item.messageTime</small>
+                            @if (Model.User.Id == User.Identity.GetUserId())
+                            {
+                                <button class="delete-msg btn btn-outline-secondary btn-sm" onclick='DoConfirmDeleteMsg("Are you sure you want to delete the message?", function yes()
                                              {
                                                 DeleteMsg(@item.id)
                                             }, function no()
                                             {
 
                                             });'>
-                        Delete
-                    </button>
-                    }
-                </li>
+                                    Delete
+                                </button>
+                            }
+                        </li>
                     }
                 }
             </ul>
@@ -169,11 +169,10 @@
 
     <input type="hidden" id="ProfileUserId" value="@Model.User.Id" />
     <input type="hidden" id="VisitorUserId" value="@User.Identity.GetUserId()" />
+
+    <ul id='VisitorList'></ul>
 </div>
-
-
-
-
+  
 
 @section scripts {
     <script>
@@ -184,12 +183,24 @@
             $.get('/API/ProfileVisits/VISIT/Add?profileUserId='
                 + ProfileUserId + '&visitorUserId=' + VisitorUserId)
 
+            //Load latest 5 visitors using AJAX
+            $.ajax({
+                url: '/API/ProfileVisits/VISIT/GetVisitors',
+                dataType: 'json',
+                success: function (data) {
+                    data.forEach((data) => {
+                        var visitorFullName = ('<li><a href="#">' + data.VisitorFullName + '</a></li>');
+                        $('#VisitorList').append(visitorFullName);
+                    });
+                }
+            });
+
 
             $('#SendMessage').click(function (ev) {
                 ev.preventDefault();
 
                 var Message = $('#new-message').val();
-                var SenderId = $('#VisitorUserId').val(); 
+                var SenderId = $('#VisitorUserId').val();
                 var RecieverId = $('#ProfileUserId').val();
 
                 $('#new-message').val("");
@@ -215,7 +226,7 @@
 
             $('.toggle-user-active-status').click(function (ev) {
                 ev.preventDefault();
-                
+
                 $.get('/API/Profile/ToggerActiveStatus',
                     function () {
                         window.location.reload();
@@ -233,7 +244,7 @@
             confirmBox.find(".no").click(noFn);
             confirmBox.show();
         }
-        
+
         function DeleteMsg(messageId) {
             $.ajax({
                 url: '/api/Message/Message/Delete?MessageId=' + messageId,
@@ -242,5 +253,5 @@
 
             location.reload();
         }
- </script>
+    </script>
 }

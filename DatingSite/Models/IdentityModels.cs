@@ -15,7 +15,7 @@ namespace DatingSite.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Description { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public string Gender { get; set; }
         public string LookingForGender { get; set; }
         public string ImagePath { get; set; }

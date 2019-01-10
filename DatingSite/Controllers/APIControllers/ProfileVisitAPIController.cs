@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DatingSite.Models;
 using DatingSite.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace DatingSite.Controllers.APIControllers
 {
@@ -20,7 +21,7 @@ namespace DatingSite.Controllers.APIControllers
         }
 
 
-        // GET/API/ProfileVisit
+        // GET/API/ProfileVisits/VISIT/Add
         [Route("VISIT/Add")]
         [HttpGet]
         public void AddProfileVisit(String profileUserId, String visitorUserId)
@@ -38,35 +39,33 @@ namespace DatingSite.Controllers.APIControllers
             }
         }
 
+        // GET/API/ProfileVisits/VISIT/GetVisitors
         [Route("VISIT/GetVisitors")]
-        public IEnumerable<VisitViewModel> GetLatestVisits()
+        public HttpResponseMessage GetLatestVisits()
         {
-            //String profileUserId
-            //var LatestProfileVisits = _dbcontext.ProfileVisits
-            //                .Where(p => p.ProfileUserId == profileUserId)
-            //                .OrderByDescending(p => p.VisitDateTime)
-            //                .Take(5).ToList();
-            //return LatestProfileVisits;
-            
-            var Visits = _dbcontext.ProfileVisits.ToList();
+            var LoggedInUserId = User.Identity.GetUserId();
 
-            var VisitViewModels = new List<VisitViewModel>();
+            var LatestProfileVisits = _dbcontext.ProfileVisits
+                            .Where(p => p.ProfileUserId == LoggedInUserId && p.VisitorUserId != LoggedInUserId)
+                            .OrderByDescending(p => p.VisitDateTime)
+                            .Take(5).ToList();
+                            
+            var visitorNamesViewModels = new List<VisitorNamesViewModel>();
             
-            for (int i = 0; i < Visits.Count; i++)
+            for (int i = 0; i < LatestProfileVisits.Count; i++)
             {
-                var senderId = Visits[i].VisitorUserId;
-                var receiverId = Visits[i].ProfileUserId;
-                var visitDateTime = Visits[i].VisitDateTime;
+                var visitorFullName = LatestProfileVisits[i].VisitorUser.FirstName + " " + LatestProfileVisits[i].VisitorUser.LastName;
+                var visitDateTime = LatestProfileVisits[i].VisitDateTime;
 
-                VisitViewModels.Add(new VisitViewModel
+                visitorNamesViewModels.Add(new VisitorNamesViewModel
                 {
-                    SenderId = senderId,
-                    ReceiverId = receiverId,
+                    VisitorFullName = visitorFullName,
                     VisitDateTime = visitDateTime
                 });
             }
 
-            return VisitViewModels;
+            //Format to json then return
+            return Request.CreateResponse(HttpStatusCode.OK, visitorNamesViewModels, Configuration.Formatters.JsonFormatter);  
         }
     }
 }
