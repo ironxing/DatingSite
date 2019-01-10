@@ -201,7 +201,7 @@ namespace DatingSite.Controllers
             var loggedInUserId = User.Identity.GetUserId();
 
             var nrFriendRequests = _dbcontext.FriendsModels
-                                .Where(f => !f.Friends && f.FriendRequest && f.ProfileOwnerId == loggedInUserId)
+                                .Where(f => !f.Friends && f.FriendRequest && f.ProfileOwnerId == loggedInUserId && f.ProfileOwner.IsActive && f.ProfileVisitor.IsActive)
                                 .Count();
             ViewBag.NrFriendRequests = nrFriendRequests;
             return PartialView();
