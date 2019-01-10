@@ -19,6 +19,7 @@ namespace DatingSite.Controllers.APIControllers
         {
             _dbcontext = new ApplicationDbContext();
         }
+
         [Route("Friend/ADD")]
         [HttpGet]
         public void sendFriendRequest(string Id)
@@ -43,8 +44,33 @@ namespace DatingSite.Controllers.APIControllers
 
                 });
             }
-
             _dbcontext.SaveChanges();
+        }
+
+        // $.get('/API/Friends/FriendRequest/Accept?FriendModelId=NN')
+        [Route("FriendRequest/Accept")]
+        [HttpGet]
+        public void AcceptFriendRequest(int FriendModelId)
+        {
+            var friendModel = _dbcontext.FriendsModels.FirstOrDefault(f => f.Id == FriendModelId);
+            if (friendModel != null)
+            {
+                friendModel.Friends = true;
+                _dbcontext.SaveChanges();
+            }
+        }
+
+        // $.get('/API/Friends/FriendRequest/Decline?FriendModelId=NN')
+        [Route("FriendRequest/Decline")]
+        [HttpGet]
+        public void DeclineFriendRequest(int FriendModelId)
+        {
+            var friendModel = _dbcontext.FriendsModels.FirstOrDefault(f => f.Id == FriendModelId);
+            if (friendModel != null)
+            {
+                friendModel.FriendRequest = false;
+                _dbcontext.SaveChanges();
+            }
         }
 
     }

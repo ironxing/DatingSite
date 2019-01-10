@@ -12,28 +12,28 @@
 <div class="col-lg-5">
     <table class="table table-hover">
         <tbody>
-            
+
             <tr class="table-primary">
                 <th scope="row">Friends</th>
             </tr>
             @foreach (var item in @Model.Friends)
             {
-            <tr class="table-success">
-                @if (item.ProfileOwner.Id != User.Identity.GetUserId())
-                {
-                    <td>
-                        @item.ProfileOwner.FirstName
-                        <span class="badge badge-danger">DELETE</span>
-                    </td>
-                }
+                <tr class="table-success">
+                    @if (item.ProfileOwner.Id != User.Identity.GetUserId())
+                    {
+                        <td>
+                            @item.ProfileOwner.FirstName
+                            <span class="badge badge-danger">DELETE</span>
+                        </td>
+                    }
 
-                @if (item.ProfileVisitor.Id != User.Identity.GetUserId())
-                {
-                    <td>
-                        @item.ProfileVisitor.FirstName
-                        <span class="badge badge-danger">DELETE</span>
-                    </td>
-                }
+                    @if (item.ProfileVisitor.Id != User.Identity.GetUserId())
+                    {
+                        <td>
+                            @item.ProfileVisitor.FirstName
+                            <span class="badge badge-danger">DELETE</span>
+                        </td>
+                    }
                 </tr>
             }
         </tbody>
@@ -54,11 +54,13 @@
 
             @foreach (var item in @Model.FriendRequests)
             {
+                <input type="hidden" class="FriendRequestId" value="@item.Id" />
+
                 <tr class="table-warning">
                     <td>
                         @item.ProfileVisitor.FirstName
-                        <span class="badge badge-success">ACCEPT</span>
-                        <span class="badge badge-danger">DECLINE</span>
+                        <span class="Accept-Friend-Request badge badge-success">ACCEPT</span>
+                        <span class="Decline-Friend-Request badge badge-danger">DECLINE</span>
                     </td>
                 </tr>
             }
@@ -68,3 +70,35 @@
     </table>
 </div>
 
+@section scripts {
+    <script>
+        $(document).ready(function (ev) {
+            
+
+            $('.Accept-Friend-Request').click(function (ev) {
+                var friendRequestId = $('.FriendRequestId').val();
+                ev.preventDefault();
+                
+                $.get('/API/Friends/FriendRequest/Accept?FriendModelId='
+                    + friendRequestId,
+                    function () {
+                        window.location.reload();
+                    }
+                );
+            });
+
+            $('.Decline-Friend-Request').click(function (ev) {
+                var friendRequestId = $('.FriendRequestId').val();
+                ev.preventDefault();
+
+                $.get('/API/Friends/FriendRequest/Decline?FriendModelId='
+                    + friendRequestId,
+                    function () {
+                        window.location.reload();
+                    }
+                );
+            });
+        });
+
+    </script>
+}
