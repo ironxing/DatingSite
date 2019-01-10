@@ -188,6 +188,7 @@
     <Compile Include="Controllers\APIControllers\DemoController.cs" />
     <Compile Include="Controllers\APIControllers\FriendsAPIController.cs" />
     <Compile Include="Controllers\APIControllers\MessageAPIController.cs" />
+    <Compile Include="Controllers\APIControllers\ProfileAPIController.cs" />
     <Compile Include="Controllers\APIControllers\ProfileVisitAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -262,6 +263,10 @@
     <Compile Include="Migrations\201901081423424_addFriendsModelAGain.cs" />
     <Compile Include="Migrations\201901081423424_addFriendsModelAGain.Designer.cs">
       <DependentUpon>201901081423424_addFriendsModelAGain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901100917147_AddIsActiveToUser.cs" />
+    <Compile Include="Migrations\201901100917147_AddIsActiveToUser.Designer.cs">
+      <DependentUpon>201901100917147_AddIsActiveToUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -348,7 +353,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ApplicationMaster\" />
     <Folder Include="Views\Layout\" />
     <Folder Include="Views\PartialView\" />
   </ItemGroup>
@@ -416,6 +420,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901081423424_addFriendsModelAGain.resx">
       <DependentUpon>201901081423424_addFriendsModelAGain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901100917147_AddIsActiveToUser.resx">
+      <DependentUpon>201901100917147_AddIsActiveToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

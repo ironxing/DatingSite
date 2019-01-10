@@ -70,13 +70,20 @@
 
 
         @if (Model.User.Id == User.Identity.GetUserId())
-        {
-
-
+        {   
             <p>
                 @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
             </p>
 
+            if (Model.User.IsActive)
+            {
+                    <input type="submit" value="Deactive Profile" class="toggle-user-active-status btn btn-secondary"/>
+            }
+            else if(!Model.User.IsActive)
+            {                
+                    <input type="submit" value="Reactive Profile" class="toggle-user-active-status btn btn-secondary"/>
+            }
+            
             <div class="card border-secondary mb-3" style="max-width: 20rem;">
                 <div class="card-header">Latest five visitors</div>
                 <div class="card-body">
@@ -101,7 +108,6 @@
                 <input type="submit" value="Export user data" class="btn btn-secondary" />
             }
         }
-    </div>
 
    
 
@@ -132,7 +138,9 @@
             <ul>
                 @foreach (var item in Model.MessageItems)
                 {
-                <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    if (item.MessageSender.IsActive)
+                    {
+                    <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">From @String.Concat(item.MessageSender.FirstName, " ", item.MessageSender.LastName)</h5>
 
@@ -152,6 +160,7 @@
                     </button>
                     }
                 </li>
+                    }
                 }
             </ul>
         }
@@ -203,10 +212,15 @@
                         window.location.reload();
                     });
             });
-                
 
-           
-            
+            $('.toggle-user-active-status').click(function (ev) {
+                ev.preventDefault();
+                
+                $.get('/API/Profile/ToggerActiveStatus',
+                    function () {
+                        window.location.reload();
+                    });
+            });
         });
 
         function DoConfirmDeleteMsg(msg, yesFn, noFn) {

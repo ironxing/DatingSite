@@ -184,11 +184,11 @@ namespace DatingSite.Controllers
         [HttpPost]
         public ActionResult SearchResult(string SearchInput)
         {
-            List<ApplicationUser> EmailMatched = _dbcontext.Users.Where(u => u.UserName.Equals(SearchInput) /*&& u.Id != User.Identity.GetUserId()*/).ToList();
+            List<ApplicationUser> EmailMatched = _dbcontext.Users.Where(u => u.UserName.Equals(SearchInput) && u.IsActive).ToList();
 
-            List<ApplicationUser> FirstNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.FirstName)/*&& u.Id != User.Identity.GetUserId()*/).ToList();
+            List<ApplicationUser> FirstNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.FirstName) && u.IsActive).ToList();
 
-            List<ApplicationUser> LastNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.LastName) /*&& u.Id != User.Identity.GetUserId()*/).ToList();
+            List<ApplicationUser> LastNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.LastName) && u.IsActive).ToList();
             
             //Union the lists together, get disctinct users
             List<ApplicationUser> SearchResult = EmailMatched.Union(FirstNameMatched).Union(LastNameMatched).ToList();
@@ -211,9 +211,11 @@ namespace DatingSite.Controllers
         {
             var LoggedInUserId = User.Identity.GetUserId();
 
-            var friends = _dbcontext.FriendsModels.Where(x => (x.ProfileVisitorId == LoggedInUserId || x.ProfileOwnerId == LoggedInUserId) && x.Friends).ToList();
+            //A list of FriendModels where prop Friends is true for active users
+            var friends = _dbcontext.FriendsModels.Where(x => (x.ProfileVisitorId == LoggedInUserId || x.ProfileOwnerId == LoggedInUserId) && x.Friends && x.ProfileOwner.IsActive && x.ProfileVisitor.IsActive).ToList();
 
-            var friendRequests = _dbcontext.FriendsModels.Where(x => x.ProfileOwnerId == LoggedInUserId && !x.Friends && x.FriendRequest).ToList();
+            //A list of FriendModels where prop FriendRequest is true for active users
+            var friendRequests = _dbcontext.FriendsModels.Where(x => x.ProfileOwnerId == LoggedInUserId && !x.Friends && x.FriendRequest && x.ProfileOwner.IsActive && x.ProfileVisitor.IsActive).ToList();
             
             return View(new FriendsFriendRequestsViewModel
             {
@@ -241,7 +243,7 @@ namespace DatingSite.Controllers
                 }
             }
         }
-
+        
         public ActionResult ExportUserData()
         {
             var UserId = User.Identity.GetUserId();

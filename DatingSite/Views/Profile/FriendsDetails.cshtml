@@ -22,35 +22,28 @@
                     @if (item.ProfileOwner.Id != User.Identity.GetUserId())
                     {
                         <td>
-                            @item.ProfileOwner.FirstName
-                            <span class="badge badge-danger">DELETE</span>
+                            @item.ProfileOwner.FirstName @item.ProfileOwner.LastName
                         </td>
                     }
 
                     @if (item.ProfileVisitor.Id != User.Identity.GetUserId())
                     {
                         <td>
-                            @item.ProfileVisitor.FirstName
-                            <span class="badge badge-danger">DELETE</span>
+                            @item.ProfileVisitor.FirstName @item.ProfileVisitor.LastName
                         </td>
                     }
                 </tr>
             }
         </tbody>
-
     </table>
 </div>
 
 <div class="col-lg-5">
-
     <table class="table table-hover">
-
         <tbody>
             <tr class="table-primary">
                 <th scope="row">Friend Requests</th>
-
             </tr>
-
 
             @foreach (var item in @Model.FriendRequests)
             {
@@ -73,8 +66,6 @@
 @section scripts {
     <script>
         $(document).ready(function (ev) {
-            
-
             $('.Accept-Friend-Request').click(function (ev) {
                 var friendRequestId = $('.FriendRequestId').val();
                 ev.preventDefault();

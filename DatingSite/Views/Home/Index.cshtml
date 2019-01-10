@@ -8,68 +8,68 @@
         <h1 class="display-3">Hello, you!</h1>
         <p class="lead">Welcome to this dating site! It uses utility classes for typographyic and spacing to space content out within the larger container.</p>
     </div>
-     @if (Model.Any())
+    @if (Model != null && Model.Any())
+    {
+        if (Model[0] != null && Model[0].IsActive)
         {
-            if (Model[0] != null)
-            {
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <h3 class="card-header">
-                            @Model[0].FirstName @Model[0].LastName
-                        </h3>
-                        <div class="card-body">
-                            <h6 class="card-subtitle text-muted"></h6>
-                        </div>
-                        <img src="~/Images/@Url.Content(Model[0].ImagePath)" style="height:200px;width:200px;" />
-                        <div class="card-body">
-                            <p class="card-text">@Model[0].Description</p>
-                        </div>
-                        <div class="card-body">
-                            @Html.ActionLink("View profile", "Details", "Profile", new { Id = @Model[0].Id }, null)
-                        </div>
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <h3 class="card-header">
+                        @Model[0].FirstName @Model[0].LastName
+                    </h3>
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted"></h6>
+                    </div>
+                    <img src="~/Images/@Url.Content(Model[0].ImagePath)" style="height:200px;width:200px;" />
+                    <div class="card-body">
+                        <p class="card-text">@Model[0].Description</p>
+                    </div>
+                    <div class="card-body">
+                        @Html.ActionLink("View profile", "Details", "Profile", new { Id = @Model[0].Id }, null)
                     </div>
                 </div>
-            }
-            if (Model[1] != null)
-            {
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <h3 class="card-header">
-                            @Model[1].FirstName @Model[1].LastName
-                        </h3>
-                        <div class="card-body">
-                            <h6 class="card-subtitle text-muted"></h6>
-                        </div>
-                        <img src="~/Images/@Url.Content(Model[1].ImagePath)" style="height:200px;width:200px;" />
-                        <div class="card-body">
-                            <p class="card-text">@Model[1].Description</p>
-                        </div>
-                        <div class="card-body">
-                            @Html.ActionLink("View profile", "Details", "Profile", new { Id = @Model[1].Id }, null)
-                        </div>
-                    </div>
-                </div>
-            }
-            if (Model[2] != null)
-            {
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <h3 class="card-header">
-                            @Model[2].FirstName @Model[2].LastName
-                        </h3>
-                        <div class="card-body">
-                            <h6 class="card-subtitle text-muted"></h6>
-                        </div>
-                        <img src="~/Images/@Url.Content(Model[2].ImagePath)" style="height:200px;width:200px;" />
-                        <div class="card-body">
-                            <p class="card-text">@Model[2].Description</p>
-                        </div>
-                        <div class="card-body">
-                            @Html.ActionLink("View profile", "Details", "Profile", new { Id = @Model[2].Id }, null)
-                        </div>
-                    </div>
-                </div>
-            }
+            </div>
         }
-    
+        if (Model[1] != null && Model[1].IsActive)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <h3 class="card-header">
+                        @Model[1].FirstName @Model[1].LastName
+                    </h3>
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted"></h6>
+                    </div>
+                    <img src="~/Images/@Url.Content(Model[1].ImagePath)" style="height:200px;width:200px;" />
+                    <div class="card-body">
+                        <p class="card-text">@Model[1].Description</p>
+                    </div>
+                    <div class="card-body">
+                        @Html.ActionLink("View profile", "Details", "Profile", new { Id = @Model[1].Id }, null)
+                    </div>
+                </div>
+            </div>
+        }
+        if (Model[2] != null && Model[2].IsActive)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <h3 class="card-header">
+                        @Model[2].FirstName @Model[2].LastName
+                    </h3>
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted"></h6>
+                    </div>
+                    <img src="~/Images/@Url.Content(Model[2].ImagePath)" style="height:200px;width:200px;" />
+                    <div class="card-body">
+                        <p class="card-text">@Model[2].Description</p>
+                    </div>
+                    <div class="card-body">
+                        @Html.ActionLink("View profile", "Details", "Profile", new { Id = @Model[2].Id }, null)
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
 </div>

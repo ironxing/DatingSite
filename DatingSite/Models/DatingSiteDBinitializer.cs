@@ -27,7 +27,8 @@ namespace DatingSite.Models
                 Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula" +
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
-                ImagePath = "Avatar1.png"
+                ImagePath = "Avatar1.png",
+                IsActive= true
             };
             UserManager.Create(user1);
 
@@ -42,7 +43,8 @@ namespace DatingSite.Models
                 Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula" +
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
-                ImagePath = "Avatar2.png"
+                ImagePath = "Avatar2.png",
+                IsActive = true
             };
             UserManager.Create(user2);
 
@@ -57,7 +59,8 @@ namespace DatingSite.Models
                 Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula" +
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
-                ImagePath = "Avatar3.png"
+                ImagePath = "Avatar3.png",
+                IsActive = true
             };
             UserManager.Create(user3);
 
@@ -72,7 +75,8 @@ namespace DatingSite.Models
                 Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " +
                 "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus " +
                 "et magnis dis parturient montes, nascetur ridiculus mus. Donec quam",
-                ImagePath = "Avatar4.png"
+                ImagePath = "Avatar4.png",
+                IsActive = false
             };
             UserManager.Create(user4);
 
@@ -87,7 +91,8 @@ namespace DatingSite.Models
                 Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " +
                 "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus " +
                 "et magnis dis parturient montes, nascetur ridiculus mus. Donec quam",
-                ImagePath = "Avatar5.png"
+                ImagePath = "Avatar5.png",
+                IsActive = true
             };
             UserManager.Create(user5);
 
@@ -102,7 +107,8 @@ namespace DatingSite.Models
                 Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " +
                 "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus " +
                 "et magnis dis parturient montes, nascetur ridiculus mus. Donec quam",
-                ImagePath = "Avatar6.png"
+                ImagePath = "Avatar6.png",
+                IsActive = true
             };
             UserManager.Create(user6);
 
@@ -117,7 +123,8 @@ namespace DatingSite.Models
                 Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula" +
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
-                ImagePath = "Avatar7.png"
+                ImagePath = "Avatar7.png",
+                IsActive = true
             };
             UserManager.Create(user7);
 
@@ -132,7 +139,8 @@ namespace DatingSite.Models
                 Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula" +
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
-                ImagePath = "Avatar8.png"
+                ImagePath = "Avatar8.png",
+                IsActive = true
             };
             UserManager.Create(user8);
 
@@ -147,7 +155,8 @@ namespace DatingSite.Models
                 Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula" +
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
-                ImagePath = "Avatar9.png"
+                ImagePath = "Avatar9.png",
+                IsActive = true
             };
             UserManager.Create(user9);
 
@@ -162,7 +171,8 @@ namespace DatingSite.Models
                 Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula" +
                 " eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur" +
                 " ridiculus mus. Donec quam",
-                ImagePath = "Avatar10.png"
+                ImagePath = "Avatar10.png",
+                IsActive = true
             };
             UserManager.Create(user10);
 
