@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DatingSite.Models
@@ -90,15 +91,31 @@ namespace DatingSite.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} character long.", MinimumLength = 1)]
         [Display(Name = "Firstname")]
         public string FirstName { get; set; }
         
 
         [Required]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} character long.", MinimumLength = 1)]
+        [Display(Name = "LastNames")]
         public string LastName { get; set; }
 
         public string ImagePath { get; set; }
+
+        [Required]
+        [StringLength(150, ErrorMessage = "The {0} must be at least {2} character long.", MinimumLength = 1)]
+        [Display(Name = "Description")]
         public string Description { get; set; }
+
+        [Required]
+        [Display(Name = "Birthdate")]
+        public DateTime BirthDate { get; set; }
+        
+        public Gender Gender { get; set; }
+        
+        [Display(Name = "Looking for gender")]
+        public Gender LookingForGender { get; set; }
     }
 
     public class ResetPasswordViewModel

@@ -26,6 +26,17 @@ namespace DatingSite.Controllers
             _dbcontext.Dispose();
         }
 
+        [HttpPost]
+        public ActionResult ValidateDateEqualOrGreater(DateTime Date)
+        {
+            // Custom validation for BirthDate
+            if (Date <= DateTime.Now)
+            {
+                return Json(true);
+            }
+            return Json(false);
+        }
+
         // GET: Profile
         public ActionResult Index()
         {
@@ -66,10 +77,6 @@ namespace DatingSite.Controllers
             return View(new ProfileDetailViewModel
             {
                 User = user,
-                LatestProfileVisits = _dbcontext.ProfileVisits
-                                .Where(p => p.ProfileUserId == Id && p.VisitorUserId != Id)
-                                .OrderByDescending(p => p.VisitDateTime)
-                                .Take(5).ToList(),
                 MessageItems = _dbcontext.MessageItems
                                .Where(m => m.MessageReceiverId == Id)
                                .OrderByDescending(m => m.messageTime)
@@ -124,6 +131,9 @@ namespace DatingSite.Controllers
                 userInDb.FirstName = User.FirstName;
                 userInDb.LastName = User.LastName;
                 userInDb.Description = User.Description;
+                userInDb.Gender = User.Gender;
+                userInDb.LookingForGender = User.LookingForGender;
+                userInDb.BirthDate = User.BirthDate;
 
                 if (ModelState.IsValid)
                 {

@@ -29,8 +29,8 @@ namespace DatingSite.Models
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar1.png",
                 IsActive= true,
-                Gender = "Female",
-                LookingForGender = "Male",
+                Gender = (Gender)1, //Female. Type Gender is Enum, casting int 1 to Gender.  
+                LookingForGender = (Gender)0, //Male
                 BirthDate = Convert.ToDateTime("1960-01-01 11:07:10")
             };
             UserManager.Create(user1);
@@ -48,8 +48,8 @@ namespace DatingSite.Models
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar2.png",
                 IsActive = true,
-                Gender = "Male",
-                LookingForGender = "Male",
+                Gender = (Gender)0,
+                LookingForGender = (Gender)0,
                 BirthDate = Convert.ToDateTime("1970-01-01 11:07:10")
             };
             UserManager.Create(user2);
@@ -67,8 +67,8 @@ namespace DatingSite.Models
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar3.png",
                 IsActive = true,
-                Gender = "Female",
-                LookingForGender = "Female",
+                Gender = (Gender)1,
+                LookingForGender = (Gender)1,
                 BirthDate = Convert.ToDateTime("1980-01-01 11:07:10")
             };
             UserManager.Create(user3);
@@ -86,8 +86,8 @@ namespace DatingSite.Models
                 "et magnis dis parturient montes, nascetur ridiculus mus. Donec quam",
                 ImagePath = "Avatar4.png",
                 IsActive = false,
-                Gender = "Female",
-                LookingForGender = "Male",
+                Gender = (Gender)1,
+                LookingForGender = (Gender)0,
                 BirthDate = Convert.ToDateTime("1990-01-01 11:07:10")
             };
             UserManager.Create(user4);
@@ -105,8 +105,8 @@ namespace DatingSite.Models
                 "et magnis dis parturient montes, nascetur ridiculus mus. Donec quam",
                 ImagePath = "Avatar5.png",
                 IsActive = true,
-                Gender = "Male",
-                LookingForGender = "Male",
+                Gender = (Gender)0,
+                LookingForGender = (Gender)0,
                 BirthDate = Convert.ToDateTime("1991-01-01 11:07:10")
             };
             UserManager.Create(user5);
@@ -124,8 +124,8 @@ namespace DatingSite.Models
                 "et magnis dis parturient montes, nascetur ridiculus mus. Donec quam",
                 ImagePath = "Avatar6.png",
                 IsActive = true,
-                Gender = "Female",
-                LookingForGender = "Male",
+                Gender = (Gender)1,
+                LookingForGender = (Gender)0,
                 BirthDate = Convert.ToDateTime("1992-01-01 11:07:10")
             };
             UserManager.Create(user6);
@@ -143,8 +143,8 @@ namespace DatingSite.Models
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar7.png",
                 IsActive = true,
-                Gender = "Male",
-                LookingForGender = "Female",
+                Gender = (Gender)0,
+                LookingForGender = (Gender)1,
                 BirthDate = Convert.ToDateTime("1993-01-01 11:07:10")
             };
             UserManager.Create(user7);
@@ -162,8 +162,8 @@ namespace DatingSite.Models
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar8.png",
                 IsActive = true,
-                Gender = "Female",
-                LookingForGender = "Male",
+                Gender = (Gender)1,
+                LookingForGender = (Gender)0,
                 BirthDate = Convert.ToDateTime("1994-01-01 11:07:10")
             };
             UserManager.Create(user8);
@@ -181,8 +181,8 @@ namespace DatingSite.Models
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar9.png",
                 IsActive = true,
-                Gender = "Female",
-                LookingForGender = "Male",
+                Gender = (Gender)1,
+                LookingForGender = (Gender)0,
                 BirthDate = Convert.ToDateTime("1995-01-01 11:07:10")
             };
             UserManager.Create(user9);
@@ -200,8 +200,8 @@ namespace DatingSite.Models
                 " ridiculus mus. Donec quam",
                 ImagePath = "Avatar10.png",
                 IsActive = true,
-                Gender = "Male",
-                LookingForGender = "Female",
+                Gender = (Gender)0,
+                LookingForGender = (Gender)1,
                 BirthDate = Convert.ToDateTime("1996-01-01 11:07:10")
             };
             UserManager.Create(user10);

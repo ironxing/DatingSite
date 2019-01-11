@@ -9,6 +9,13 @@
 
 <div class="row">
     <div class="col-lg-4">
+        @*Do we match session, show for visitors only*@
+        @if (Model.User.Id != User.Identity.GetUserId())
+        {
+            <button id="DoWeMatch" type="button" class="btn btn-outline-warning">Do we match?</button>
+        }
+
+        @*Profile*@
         <dl class="dl-horizontal">
             <div class="card-body">
                 <dt>
@@ -33,6 +40,18 @@
                     @Html.DisplayFor(model => model.User.Email)
                 </dd>
                 <dt>
+                    @Html.DisplayNameFor(model => model.User.BirthDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.BirthDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.Gender)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.Gender)
+                </dd>
+                <dt>
                     @Html.DisplayNameFor(model => model.User.Description)
                 </dt>
                 <p>
@@ -44,6 +63,7 @@
             @Html.ActionLink("Back to Home", "Index", "Home")
         </p>
 
+        @*Add friend, show for visitors only*@
         @if (Model.User.Id != User.Identity.GetUserId())
         {
             <div class="friends">
@@ -68,55 +88,54 @@
             </div>
         }
 
-
+        @*links, show for profile owner only*@
         @if (Model.User.Id == User.Identity.GetUserId())
         {
+            //Edit
             <p>
                 @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
             </p>
 
-            if (Model.User.IsActive)
-            {
-                <input type="submit" value="Deactive Profile" class="toggle-user-active-status btn btn-secondary" />
-            }
-            else if (!Model.User.IsActive)
-            {
-                <input type="submit" value="Reactive Profile" class="toggle-user-active-status btn btn-secondary" />
-            }
+            //Toggle active status
+            <p>
+                @if (Model.User.IsActive)
+                {
+                    <input type="submit" value="Deactive Profile" class="toggle-user-active-status btn btn-secondary" />
+                }
+                else if (!Model.User.IsActive)
+                {
+                    <input type="submit" value="Reactive Profile" class="toggle-user-active-status btn btn-secondary" />
+                }
+            </p>
 
+            //Export
+            <p>
+                @using (Html.BeginForm("ExportUserData", "Profile", null, FormMethod.Post))
+                {
+                    <input type="submit" value="Export user data" class="btn btn-secondary" />
+                }
+            </p>
+
+            //Latest visitors
             <div class="card border-secondary mb-3" style="max-width: 20rem;">
                 <div class="card-header">Latest five visitors</div>
                 <div class="card-body">
-                    <ul style="list-style-type:none">
-                        @if (Model.LatestProfileVisits.Any())
-                        {
-                            foreach (var item in Model.LatestProfileVisits)
-                            {
-                                <a href="/Profile/Details/@item.VisitorUser.Id">
-                                    <li>
-                                        @String.Concat(item.VisitorUser.FirstName, " ", item.VisitorUser.LastName)
-                                    </li>
-                                </a>
-                            }
-                        }
-                    </ul>
+                    <a>
+                        <ul id='VisitorList' style="list-style-type:none">
+                            @*ApiController AJAX Result come here*@
+                        </ul>
+                    </a>
                 </div>
             </div>
-
-            using (Html.BeginForm("ExportUserData", "Profile", null, FormMethod.Post))
-            {
-                <input type="submit" value="Export user data" class="btn btn-secondary" />
-            }
         }
-
     </div>
 
-
+    @*message*@
     <div class="col-lg-6 offset-lg-1">
         <div class="modal-dialog col-lg-6" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Message</h5>
                 </div>
                 <div class="modal-body">
                     <textarea rows="3" cols="70" id="new-message"></textarea>
@@ -169,8 +188,6 @@
 
     <input type="hidden" id="ProfileUserId" value="@Model.User.Id" />
     <input type="hidden" id="VisitorUserId" value="@User.Identity.GetUserId()" />
-
-    <ul id='VisitorList'></ul>
 </div>
   
 
@@ -232,8 +249,29 @@
                         window.location.reload();
                     });
             });
+
+            $('#DoWeMatch').click(function (ev) {
+                ev.preventDefault();
+                //on click returns Profile owner full name and match result
+                $.ajax({
+                    url: '/API/Profile/DoWeMatch?ProfileOwnerId=' + ProfileUserId,
+                    dataType: 'json',
+                    success: function (data) {
+                        var ProfileOwnerFullName = data.ProfileOwnerFullName;
+                        var Match = data.Match;
+
+                        if (Match) {
+                            alert("Yes! You and " + ProfileOwnerFullName + "match with each other!")
+                        }
+                        else {
+                            alert("No, you and " + ProfileOwnerFullName + " do not match each other.")
+                        }
+                    }
+                });
+            });
         });
 
+        //functions for custom confirm box
         function DoConfirmDeleteMsg(msg, yesFn, noFn) {
             var confirmBox = $("#confirmBox");
             confirmBox.find(".message").text(msg);

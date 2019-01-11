@@ -156,7 +156,9 @@ namespace DatingSite.Controllers
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Description = model.Description;
-
+                user.Gender = model.Gender;
+                user.LookingForGender = model.LookingForGender;
+                user.BirthDate = model.BirthDate;
 
                 if (file != null)
                 {

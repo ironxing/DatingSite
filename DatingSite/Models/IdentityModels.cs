@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -15,9 +17,13 @@ namespace DatingSite.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Description { get; set; }
+
+        //Custome validation on BirthDate, needs to before current date
+        [Remote("ValidateDateEqualOrGreater", HttpMethod = "Post", ErrorMessage = "Date isn't equal or greater than current date.")]
+        [DataType(DataType.Date)]
         public DateTime? BirthDate { get; set; }
-        public string Gender { get; set; }
-        public string LookingForGender { get; set; }
+        public Gender? Gender { get; set; }
+        public Gender? LookingForGender { get; set; }
         public string ImagePath { get; set; }
         public bool IsActive { get; set; }
 
@@ -31,6 +37,14 @@ namespace DatingSite.Models
             return userIdentity;
         }
     }
+
+    public enum Gender
+    {
+        Male = 0,
+        Female = 1,
+        Other = 2
+    }
+
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
