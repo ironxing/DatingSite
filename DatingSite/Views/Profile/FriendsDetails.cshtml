@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @using DatingSite.Models
-using System.Linq;
+@using System.Linq;
+
 @model DatingSite.Models.ViewModels.FriendsFriendRequestsViewModel
 
 
@@ -9,107 +10,131 @@ using System.Linq;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>FriendDetails</h2>
-
-<div class="form">
-    <label class="col-form-label" for="inputDefault">Create Category</label>
-    <p><input type="text" class="form-control" placeholder="Default input" id="CategoryInput"></p>
-</div>
-<p><button type="button" class="btn btn-primary" id="AddCategory">Add category</button></p>
-
-
-<div class="form-group">
-
-    @*List Categories*@
-    <div class="card border-secondary mb-3" style="max-width: 20rem;">
-
+<div class="row">
+    <div class="col-md-3">
         <div class="card-body">
-            <a>
-                <ul id='CategoryList' style="list-style-type:none">
-
-                    @*ApiController AJAX Result come here*@
-                </ul>
-            </a>
+            <p> <input type="text" class="form-cont</div>rol" placeholder="New friend category" id="CategoryInput"></p>
+            <p> <button type="button" class="btn btn-primary" id="AddCategory">Add</button></p>
         </div>
     </div>
 
-</div>
+    <div class="col-md-8">
 
-<div class="col-lg-5">
-    <table class="table table-hover">
-        <tbody>
+        <div class="col-md-8">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr class="table-primary">
+                            <th colspan="3" scope="row">Friends</th>
+                        </tr>
 
-            <tr class="table-primary">
-                <th scope="row">Friends</th>
-            </tr>
-            @foreach (var item in @Model.Friends)
-            {
-                <tr class="table-success">
-                    @if (item.ProfileOwner.Id != User.Identity.GetUserId())
-                    {
-                        <td>
-                            @item.ProfileOwner.FirstName @item.ProfileOwner.LastName
-                        </td>
-                        <td>
-                            <div class="col-md-10">
-                                @Html.DropDownList("ddl",Model.FriendCategories.Select(f => new SelectListItem
+                        @foreach (var item in @Model.Friends)
+                        {
+                        
+
+                        <tr class="table-success">
+                            @*if current user was the Friend request sender*@
+
+                            @if (item.ProfileVisitor.Id == User.Identity.GetUserId())
+                            {
+                                <td>
+                                    @item.ProfileOwner.FirstName @item.ProfileOwner.LastName
+                                </td>
+
+                                <td>
+                                    @if (Model.FriendCategories != null)
                                     {
-                                       Value = f.CategoryName.ToString(),
-                                       Text = f.CategoryName.ToString(),
-                                       Selected = "select" == f.CategoryName.ToString()
-                                    }))
-                            </div>
-                        </td>
-                    }
+                                        if (Model.FriendCategories.Any())
+                                        {
+                                            using (Html.BeginForm("AssignFriendCategory", "Profile", null, FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="FriendModelId" value=@item.Id />
 
-                    @if (item.ProfileVisitor.Id != User.Identity.GetUserId())
-                    {
-                        <td>
-                            @item.ProfileVisitor.FirstName @item.ProfileVisitor.LastName
-                        </td>
-                        <td>
-                            <div class="col-md-10">
-                                @Html.DropDownList("ddl",Model.FriendCategories.Select(f => new SelectListItem
+                                                <div class="form-group">
+                                                    @Html.DropDownList("ddlFriendCategoryName", Model.FriendCategories.Select(f => new SelectListItem
+                                                       {
+                                                           Value = f.CategoryName.ToString(),
+                                                           Text = f.CategoryName.ToString(),
+                                                           Selected = "select" == f.CategoryName.ToString()
+                                                       }))
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <input type="hidden" name="FriendRequestSide" value="ProfileVisitor" />
+                                                    <button id="AssignCategory" class="btn btn-secondary btn-sm" type="submit">Assign category</button>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </td>
+                            }
+
+                            @*if current user was the Friend request receiver*@
+                            @if (@item.ProfileOwner.Id == User.Identity.GetUserId())
+                            {
+                                <td>
+                                    @item.ProfileVisitor.FirstName @item.ProfileVisitor.LastName
+                                </td>
+                                <td>
+                                    @if (Model.FriendCategories != null)
                                     {
-                                       Value = f.CategoryName.ToString(),
-                                       Text = f.CategoryName.ToString(),
-                                       Selected = "select" == f.CategoryName.ToString()
-                                    }))
+                                        if (Model.FriendCategories.Any())
+                                        {
+                                            using (Html.BeginForm("AssignFriendCategory", "Profile", null, FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="FriendModelId" value=@item.Id />
 
-                                @*@Html.DropDownList("Category",
-                                         new SelectList(Model.FriendCategories, "CategoryName"),
-                                         "Select Category",
-                                         new { @class = "form-control" })*@
-                            </div>
-                        </td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                                                <div class="form-group">
+                                                    @Html.DropDownList("ddlFriendCategoryName", Model.FriendCategories.Select(f => new SelectListItem
+                                                       {
+                                                           Value = f.CategoryName.ToString(),
+                                                           Text = f.CategoryName.ToString(),
+                                                           Selected = "select" == f.CategoryName.ToString()
+                                                       }))
+                                                </div>
 
-<div class="col-lg-5">
-    <table class="table table-hover">
-        <tbody>
-            <tr class="table-primary">
-                <th scope="row">Friend Requests</th>
-            </tr>
+                                                <div class="form-group">
+                                                    <input type="hidden" name="FriendRequestSide" value="ProfileOwner" />
+                                                    <button id="AssignCategory" class="btn btn-secondary btn-sm" type="submit">Assign category</button>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </td>
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-            @foreach (var item in @Model.FriendRequests)
-            {
-                <input type="hidden" class="FriendRequestId" value="@item.Id" />
+        <div class="col-md-8">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr class="table-primary">
+                            <th scope="row">Friend Requests</th>
+                        </tr>
 
-                <tr class="table-warning">
-                    <td>
-                        @item.ProfileVisitor.FirstName
-                        <span class="Accept-Friend-Request badge badge-success">ACCEPT</span>
-                        <span class="Decline-Friend-Request badge badge-danger">DECLINE</span>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                        @foreach (var item in @Model.FriendRequests)
+                        {
+                            <input type="hidden" class="FriendRequestId" value="@item.Id" />
+                            <tr class="table-warning">
+                                <td>
+                                    @item.ProfileVisitor.FirstName
+                                    <span class="Accept-Friend-Request badge badge-success">ACCEPT</span>
+                                    <span class="Decline-Friend-Request badge badge-danger">DECLINE</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section scripts {
@@ -149,6 +174,7 @@ using System.Linq;
                     }
                 );
             });
+
             $('#AddCategory').click(function (ev) {
                 ev.preventDefault();
 

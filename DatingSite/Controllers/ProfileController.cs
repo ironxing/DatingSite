@@ -119,6 +119,32 @@ namespace DatingSite.Controllers
         }
 
         [HttpPost]
+        public ActionResult AssignFriendCategory(int FriendModelId, string FriendRequestSide)
+        {
+            var FriendCategoryName = Request.Form["ddlFriendCategoryName"].ToString();
+
+            var FriendModel = _dbcontext.FriendsModels.SingleOrDefault(f => f.Id == FriendModelId);
+
+            var LoggedInUserId = User.Identity.GetUserId();
+            
+            var FriendCategory = _dbcontext.FriendCategories.SingleOrDefault(f => f.CategoryOwnerId == LoggedInUserId && f.CategoryName== FriendCategoryName);           
+            var FriendCategoryId = FriendCategory.Id;
+
+
+            if (FriendRequestSide == "ProfileOwner")
+            {
+                FriendModel.ProfileOwnerCategoryId = FriendCategoryId;
+            }
+            else if(FriendRequestSide == "ProfileVisitor")
+            {
+                FriendModel.ProfileVisitorCategoryId = FriendCategoryId;
+            }
+            _dbcontext.SaveChanges();
+
+            return RedirectToAction("FriendsDetails", "Profile");
+        }
+
+        [HttpPost]
         public ActionResult Save(ApplicationUser User, HttpPostedFileBase file)
         {
             if (User.Id == "")
@@ -244,6 +270,7 @@ namespace DatingSite.Controllers
             return PartialView();
         }
         
+        [Authorize]
         public ActionResult FriendsDetails()
         {
             var LoggedInUserId = User.Identity.GetUserId();

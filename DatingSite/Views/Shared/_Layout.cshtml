@@ -30,11 +30,12 @@
                     <input type="submit" value="Search" class="btn btn-secondary" />
                 }
 
-                    <div class="nav navbar-nav ml-auto">
-                        @if (Request.IsAuthenticated)
-                        {
-                            @Html.Action("FriendRequestPartialView", "Profile")
-                        }
+                    <div class="nav navbar-nav ml-auto row glyphicon-align-center">
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                @Html.Action("FriendRequestPartialView", "Profile")
+                            }
                         @Html.Partial("_LoginPartial")
                     </div>
             </div>
@@ -42,8 +43,6 @@
     </div>
 
     <div class="container">
-        
-
         @RenderBody()
         <hr />
         <footer>
