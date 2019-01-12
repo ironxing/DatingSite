@@ -1,4 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
+@using DatingSite.Models
+using System.Linq;
 @model DatingSite.Models.ViewModels.FriendsFriendRequestsViewModel
 
 
@@ -8,6 +10,30 @@
 }
 
 <h2>FriendDetails</h2>
+
+<div class="form">
+    <label class="col-form-label" for="inputDefault">Create Category</label>
+    <p><input type="text" class="form-control" placeholder="Default input" id="CategoryInput"></p>
+</div>
+<p><button type="button" class="btn btn-primary" id="AddCategory">Add category</button></p>
+
+
+<div class="form-group">
+
+    @*List Categories*@
+    <div class="card border-secondary mb-3" style="max-width: 20rem;">
+
+        <div class="card-body">
+            <a>
+                <ul id='CategoryList' style="list-style-type:none">
+
+                    @*ApiController AJAX Result come here*@
+                </ul>
+            </a>
+        </div>
+    </div>
+
+</div>
 
 <div class="col-lg-5">
     <table class="table table-hover">
@@ -24,12 +50,37 @@
                         <td>
                             @item.ProfileOwner.FirstName @item.ProfileOwner.LastName
                         </td>
+                        <td>
+                            <div class="col-md-10">
+                                @Html.DropDownList("ddl",Model.FriendCategories.Select(f => new SelectListItem
+                                    {
+                                       Value = f.CategoryName.ToString(),
+                                       Text = f.CategoryName.ToString(),
+                                       Selected = "select" == f.CategoryName.ToString()
+                                    }))
+                            </div>
+                        </td>
                     }
 
                     @if (item.ProfileVisitor.Id != User.Identity.GetUserId())
                     {
                         <td>
                             @item.ProfileVisitor.FirstName @item.ProfileVisitor.LastName
+                        </td>
+                        <td>
+                            <div class="col-md-10">
+                                @Html.DropDownList("ddl",Model.FriendCategories.Select(f => new SelectListItem
+                                    {
+                                       Value = f.CategoryName.ToString(),
+                                       Text = f.CategoryName.ToString(),
+                                       Selected = "select" == f.CategoryName.ToString()
+                                    }))
+
+                                @*@Html.DropDownList("Category",
+                                         new SelectList(Model.FriendCategories, "CategoryName"),
+                                         "Select Category",
+                                         new { @class = "form-control" })*@
+                            </div>
                         </td>
                     }
                 </tr>
@@ -57,8 +108,6 @@
                     </td>
                 </tr>
             }
-
-
         </tbody>
     </table>
 </div>
@@ -66,10 +115,21 @@
 @section scripts {
     <script>
         $(document).ready(function (ev) {
+            $.ajax({
+                url: '/api/Category/Category/ShowList',
+                dataType: 'json',
+                success: function (data) {
+                    data.forEach((data) => {
+                        var CategoryName = ('<li>' + data.CategoryName + '</li>');
+                        $('#CategoryList').append(CategoryName);
+                    });
+                }
+            });
+
             $('.Accept-Friend-Request').click(function (ev) {
                 var friendRequestId = $('.FriendRequestId').val();
                 ev.preventDefault();
-                
+
                 $.get('/API/Friends/FriendRequest/Accept?FriendModelId='
                     + friendRequestId,
                     function () {
@@ -89,7 +149,18 @@
                     }
                 );
             });
-        });
+            $('#AddCategory').click(function (ev) {
+                ev.preventDefault();
 
+                var categoryName = $('#CategoryInput').val();
+                $('#CategoryInput').val("");
+                console.log(categoryName);
+                $.get('/api/Category/Category/Add?categoryName='
+                    + categoryName,
+                    function () {
+                        window.location.reload();
+                    });
+            });
+        });
     </script>
 }

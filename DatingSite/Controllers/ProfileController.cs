@@ -206,6 +206,33 @@ namespace DatingSite.Controllers
             return View(SearchResult);
         }
 
+        //[HttpPost]
+        //public ActionResult MyMatches()
+        //{
+        //    var LoggedInUserId = User.Identity.GetUserId();
+        //    var LoggedInUser = _dbcontext.Users.SingleOrDefault(u => u.Id == LoggedInUserId);
+            
+        //    var AllOtherUsers = _dbcontext.Users.Where(u => u.Id != LoggedInUserId);
+        //    var MatchedUsers = new List<ApplicationUser>();
+
+        //    //loop through
+        //    var matchResults = new List<MatchResultForListViewModel>();
+
+        //    ////
+
+        //    ////
+        //    //List<ApplicationUser> EmailMatched = _dbcontext.Users.Where(u => u.UserName.Equals(SearchInput) && u.IsActive).ToList();
+
+        //    //List<ApplicationUser> FirstNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.FirstName) && u.IsActive).ToList();
+
+        //    //List<ApplicationUser> LastNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.LastName) && u.IsActive).ToList();
+
+        //    ////Union the lists together, get disctinct users
+        //    //List<ApplicationUser> SearchResult = EmailMatched.Union(FirstNameMatched).Union(LastNameMatched).ToList();
+
+        //    return View(SearchResult);
+        //}
+
         public ActionResult FriendRequestPartialView()
         {
             var loggedInUserId = User.Identity.GetUserId();
@@ -226,13 +253,18 @@ namespace DatingSite.Controllers
 
             //A list of FriendModels where prop FriendRequest is true for active users
             var friendRequests = _dbcontext.FriendsModels.Where(x => x.ProfileOwnerId == LoggedInUserId && !x.Friends && x.FriendRequest && x.ProfileOwner.IsActive && x.ProfileVisitor.IsActive).ToList();
-            
+
+            //A List of FriendCategories 
+            var friendCategories = _dbcontext.FriendCategories.Where(x => x.CategoryOwnerId == LoggedInUserId).ToList();
+
             return View(new FriendsFriendRequestsViewModel
             {
                 Friends = friends,
-                FriendRequests = friendRequests
+                FriendRequests = friendRequests,
+                FriendCategories = friendCategories
             });
         }
+
 
         public class XmlResult : ActionResult
         {

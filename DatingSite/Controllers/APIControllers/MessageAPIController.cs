@@ -17,8 +17,8 @@ namespace DatingSite.Controllers.APIControllers
         {
             _dbcontext = new ApplicationDbContext();
         }
-        
 
+        // Get ('api/Message/Message/Add?')
         [Route("Message/Add")]
         [HttpGet]
         public void AddMessage(string senderId, string recieverId, string message)

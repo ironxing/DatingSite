@@ -9,6 +9,7 @@ namespace DatingSite.Models.ViewModels
     {
         public List<FriendsModel> Friends { get; set; }
         public List<FriendsModel> FriendRequests { get; set; }
+        public List<FriendCategory> FriendCategories { get; set; }
 
     }
 }

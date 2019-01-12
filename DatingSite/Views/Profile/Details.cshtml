@@ -9,12 +9,20 @@
 
 <div class="row">
     <div class="col-lg-4">
-        @*Do we match session, show for visitors only*@
+        @*Do we match button, shown for visitors only*@
         @if (Model.User.Id != User.Identity.GetUserId())
         {
             <button id="DoWeMatch" type="button" class="btn btn-outline-warning">Do we match?</button>
         }
 
+        @*My Matches, shown for visitors only*@
+        @if (Model.User.Id == User.Identity.GetUserId())
+        {
+            <p>
+                @Html.ActionLink("My Matches", "MyMatches")
+            </p>
+        }
+        
         @*Profile*@
         <dl class="dl-horizontal">
             <div class="card-body">
@@ -63,7 +71,7 @@
             @Html.ActionLink("Back to Home", "Index", "Home")
         </p>
 
-        @*Add friend, show for visitors only*@
+        @*Add friend, shown for visitors only*@
         @if (Model.User.Id != User.Identity.GetUserId())
         {
             <div class="friends">
@@ -88,24 +96,12 @@
             </div>
         }
 
-        @*links, show for profile owner only*@
+        @*links and buttons that are shown for profile owner only*@
         @if (Model.User.Id == User.Identity.GetUserId())
         {
             //Edit
             <p>
                 @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
-            </p>
-
-            //Toggle active status
-            <p>
-                @if (Model.User.IsActive)
-                {
-                    <input type="submit" value="Deactive Profile" class="toggle-user-active-status btn btn-secondary" />
-                }
-                else if (!Model.User.IsActive)
-                {
-                    <input type="submit" value="Reactive Profile" class="toggle-user-active-status btn btn-secondary" />
-                }
             </p>
 
             //Export
@@ -115,6 +111,19 @@
                     <input type="submit" value="Export user data" class="btn btn-secondary" />
                 }
             </p>
+
+            //Toggle active status
+            <p>
+                @if (Model.User.IsActive)
+                {
+                    <input type="submit" value="Deactive Profile" class="btn btn-danger" />
+                }
+                else if (!Model.User.IsActive)
+                {
+                    <input type="submit" value="Reactive Profile" class="btn btn-danger" />
+                }
+            </p>
+
 
             //Latest visitors
             <div class="card border-secondary mb-3" style="max-width: 20rem;">
@@ -226,8 +235,7 @@
                     + Message + '&senderId=' + SenderId + '&recieverId=' + RecieverId,
                     function () {
                         window.location.reload();
-                    }
-                );
+                });
             });
 
             $('#AddFriend').click(function (ev) {

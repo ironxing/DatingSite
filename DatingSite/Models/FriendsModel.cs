@@ -20,5 +20,14 @@ namespace DatingSite.Models
 
         public string ProfileVisitorId{ get; set; }
         public virtual ApplicationUser ProfileVisitor { get; set; }
+
+        public int? ProfileOwnerCategoryId { get; set; }
+        [ForeignKey("ProfileOwnerCategoryId")]
+        public virtual FriendCategory ProfileOwnerCategory { get; set; }
+
+        public int? ProfileVisitorCategoryId { get; set; }
+        [ForeignKey("ProfileVisitorCategoryId")]
+        public virtual FriendCategory ProfileVisitorCategory { get; set; }
+
     }
 }

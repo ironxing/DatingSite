@@ -10,4 +10,10 @@ namespace DatingSite.Models.ViewModels
         public string ProfileOwnerFullName { get; set; }
         public bool Match { get; set; }
     }
+
+    public class MatchResultForListViewModel
+    {
+        public string MatchedUserId { get; set; }
+        public string MatchedUserFullName { get; set; }
+    }
 }

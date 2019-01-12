@@ -19,7 +19,7 @@ namespace DatingSite.Models
         public string Description { get; set; }
 
         //Custome validation on BirthDate, needs to before current date
-        [Remote("ValidateDateEqualOrGreater", HttpMethod = "Post", ErrorMessage = "Date isn't equal or greater than current date.")]
+        //[Remote("ValidateDateEqualOrGreater", HttpMethod = "Post", ErrorMessage = "Date isn't equal or greater than current date.")]
         [DataType(DataType.Date)]
         public DateTime? BirthDate { get; set; }
         public Gender? Gender { get; set; }
@@ -51,6 +51,7 @@ namespace DatingSite.Models
         public DbSet<ProfileVisit> ProfileVisits { get; set; }
         public DbSet<MessageItem> MessageItems { get; set; }
         public DbSet<FriendsModel> FriendsModels { get; set; }
+        public DbSet<FriendCategory> FriendCategories { get; set; }
 
         public ApplicationDbContext()
             : base("DatingSiteDB", throwIfV1Schema: false)
