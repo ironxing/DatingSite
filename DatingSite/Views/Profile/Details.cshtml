@@ -18,11 +18,9 @@
         @*My Matches, shown for visitors only*@
         @if (Model.User.Id == User.Identity.GetUserId())
         {
-            <p>
-                @Html.ActionLink("My Matches", "MyMatches")
-            </p>
+            @Html.ActionLink("My Matches", "MyMatches", new { id = Model.User.Id } , new{ @class="btn btn-outline-warning"})
         }
-        
+
         @*Profile*@
         <dl class="dl-horizontal">
             <div class="card-body">
@@ -83,9 +81,7 @@
                 }
                 else if (!Model.FriendStatus && !Model.Friends)
                 {
-                    <div class="arefriendsdiv afc hide alert alert-info">
                         <button type="button" class="btn btn-primary" id="AddFriend">Add Friend</button>
-                    </div>
                 }
                 else if (Model.Friends && Model.FriendStatus)
                 {
@@ -129,11 +125,9 @@
             <div class="card border-secondary mb-3" style="max-width: 20rem;">
                 <div class="card-header">Latest five visitors</div>
                 <div class="card-body">
-                    <a>
                         <ul id='VisitorList' style="list-style-type:none">
                             @*ApiController AJAX Result come here*@
                         </ul>
-                    </a>
                 </div>
             </div>
         }
@@ -215,7 +209,7 @@
                 dataType: 'json',
                 success: function (data) {
                     data.forEach((data) => {
-                        var visitorFullName = ('<li><a href="#">' + data.VisitorFullName + '</a></li>');
+                        var visitorFullName = ('<li><a href=/Profile/Details/' + data.VisitorId + '>' + data.VisitorFullName + '</a></li>');
                         $('#VisitorList').append(visitorFullName);
                     });
                 }

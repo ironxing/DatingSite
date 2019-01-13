@@ -14,6 +14,7 @@ namespace DatingSite.Models.ViewModels
     {
         public int FriendModelId { get; set; }
         public string FriendFullName { get; set; }
+        public string FriendUserId { get; set; }
         public string CategoryName { get; set; }
         public string FriendRequestSide { get; set; }
     }

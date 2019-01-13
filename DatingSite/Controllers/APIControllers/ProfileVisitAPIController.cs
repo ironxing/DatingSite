@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DatingSite.Models;
 using DatingSite.Models.ViewModels;
 using Microsoft.AspNet.Identity;
+using MoreLinq;
 
 namespace DatingSite.Controllers.APIControllers
 {
@@ -48,17 +50,21 @@ namespace DatingSite.Controllers.APIControllers
             var LatestProfileVisits = _dbcontext.ProfileVisits
                             .Where(p => p.ProfileUserId == LoggedInUserId && p.VisitorUserId != LoggedInUserId)
                             .OrderByDescending(p => p.VisitDateTime)
-                            .Take(5).ToList();
+                            .DistinctBy(p => p.VisitorUserId) //A method from MoreLinq library
+                            .Take(5)
+                            .ToList();
                             
             var visitorNamesViewModels = new List<VisitorNamesViewModel>();
             
             for (int i = 0; i < LatestProfileVisits.Count; i++)
             {
+                var visitorId = LatestProfileVisits[i].VisitorUserId;
                 var visitorFullName = LatestProfileVisits[i].VisitorUser.FirstName + " " + LatestProfileVisits[i].VisitorUser.LastName;
                 var visitDateTime = LatestProfileVisits[i].VisitDateTime;
 
                 visitorNamesViewModels.Add(new VisitorNamesViewModel
                 {
+                    VisitorId = visitorId,
                     VisitorFullName = visitorFullName,
                     VisitDateTime = visitDateTime
                 });

@@ -15,5 +15,7 @@ namespace DatingSite.Models.ViewModels
     {
         public string MatchedUserId { get; set; }
         public string MatchedUserFullName { get; set; }
+        public string MatchedUserDescription { get; set; }
+        public string MatchedUserEmail { get; set; }
     }
 }

@@ -50,30 +50,48 @@ namespace DatingSite.Controllers
         {
             var VisitorId = User.Identity.GetUserId();
 
-            var Friendship = _dbcontext.FriendsModels.FirstOrDefault(f => f.ProfileOwnerId == Id && f.ProfileVisitorId == VisitorId);
-
-
+            var FriendshipAsFRReceiver = _dbcontext.FriendsModels.FirstOrDefault(f => f.ProfileOwnerId == Id && f.ProfileVisitorId == VisitorId);
+            var FriendshipAsFRSender = _dbcontext.FriendsModels.FirstOrDefault(f => f.ProfileVisitorId == Id && f.ProfileOwnerId == VisitorId);
+            
             var user = _dbcontext.Users.SingleOrDefault(u => u.Id == Id);
             if (user == null)
                 return HttpNotFound();
 
-            bool friendRequest;
-            bool friendsCheck;
+            bool friendRequest = false;
+            bool friendsCheck = false;
 
-            if (Friendship != null)
-
-
+            //logged in user can be Friend request Sender or Receiver. 
+            //If somehow logged in user has Sent AND Received FR from the same user
+            if(FriendshipAsFRReceiver != null && FriendshipAsFRSender != null)
             {
-                friendRequest = Friendship.FriendRequest;
-                friendsCheck = Friendship.Friends;
+                if(FriendshipAsFRReceiver.FriendRequest || FriendshipAsFRSender.FriendRequest)
+                {
+                    friendRequest = true;
+                }
+                if (FriendshipAsFRReceiver.Friends || FriendshipAsFRSender.Friends)
+                {
+                    friendsCheck = true;
+                }
             }
-            else
+            //If logged in user has Received FR from the same user
+            else if (FriendshipAsFRReceiver != null && FriendshipAsFRSender == null)
+            {
+                friendRequest = FriendshipAsFRReceiver.FriendRequest;
+                friendsCheck = FriendshipAsFRReceiver.Friends;
+            }
+            //If logged in user has Sent FR from the same user
+            else if (FriendshipAsFRReceiver == null && FriendshipAsFRSender != null)
+            {
+                friendRequest = FriendshipAsFRSender.FriendRequest;
+                friendsCheck = FriendshipAsFRSender.Friends;
+            }
+            //No FR and friendship between the logged in user and the profile user
+            else if (FriendshipAsFRReceiver == null && FriendshipAsFRSender == null)
             {
                 friendRequest = false;
                 friendsCheck = false;
-
             }
-
+            
             return View(new ProfileDetailViewModel
             {
                 User = user,
@@ -83,7 +101,6 @@ namespace DatingSite.Controllers
                                .Take(5).ToList(),
                 FriendStatus = friendRequest,
                 Friends = friendsCheck
-
             });
         }
 
@@ -232,32 +249,49 @@ namespace DatingSite.Controllers
             return View(SearchResult);
         }
 
-        //[HttpPost]
-        //public ActionResult MyMatches()
-        //{
-        //    var LoggedInUserId = User.Identity.GetUserId();
-        //    var LoggedInUser = _dbcontext.Users.SingleOrDefault(u => u.Id == LoggedInUserId);
-            
-        //    var AllOtherUsers = _dbcontext.Users.Where(u => u.Id != LoggedInUserId);
-        //    var MatchedUsers = new List<ApplicationUser>();
+        public ActionResult MyMatches(string id)
+        {
+            var LoggedInUser = _dbcontext.Users.SingleOrDefault(u => u.Id == id);
 
-        //    //loop through
-        //    var matchResults = new List<MatchResultForListViewModel>();
+            var AllOtherUsers = _dbcontext.Users.Where(u => u.Id != id).OrderBy(u =>u.UserName);
+            var MatchedUsers = new List<ApplicationUser>();
 
-        //    ////
+            //loop through
+            var matchedUsers = new List<MatchResultForListViewModel>();
 
-        //    ////
-        //    //List<ApplicationUser> EmailMatched = _dbcontext.Users.Where(u => u.UserName.Equals(SearchInput) && u.IsActive).ToList();
+            foreach (var otherUser in AllOtherUsers)
+            {
+                if (Match(LoggedInUser, otherUser))
+                {
+                    matchedUsers.Add(new MatchResultForListViewModel
+                    {
+                        MatchedUserId = otherUser.Id,
+                        MatchedUserFullName = otherUser.FirstName + " " + otherUser.LastName,
+                        MatchedUserDescription = otherUser.Description,
+                        MatchedUserEmail = otherUser.Email
+                    });
+                }
+            }
 
-        //    //List<ApplicationUser> FirstNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.FirstName) && u.IsActive).ToList();
+            return View(matchedUsers);
+        }
 
-        //    //List<ApplicationUser> LastNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.LastName) && u.IsActive).ToList();
+        // A method that returns true if two users match with each other
+        public bool Match(ApplicationUser user1, ApplicationUser user2)
+        {
+            bool Match;
+            //matching rule: user1's gender matches what user2 is looking for and vice versa
+            if (user1.LookingForGender == user2.Gender && user2.LookingForGender == user1.Gender)
+            {
+                Match = true;
+            }
+            else
+            {
+                Match = false;
+            }
 
-        //    ////Union the lists together, get disctinct users
-        //    //List<ApplicationUser> SearchResult = EmailMatched.Union(FirstNameMatched).Union(LastNameMatched).ToList();
-
-        //    return View(SearchResult);
-        //}
+            return Match;
+        }
 
         public ActionResult FriendRequestPartialView()
         {
@@ -299,6 +333,7 @@ namespace DatingSite.Controllers
                                 FriendModelId = item.Id,
                                 FriendFullName = item.ProfileOwner.FirstName + " " + item.ProfileOwner.LastName,
                                 CategoryName = item.ProfileVisitorCategory.CategoryName,
+                                FriendUserId = item.ProfileOwnerId,
                                 FriendRequestSide = "ProfileVisitor"
                             });
                         }
@@ -308,6 +343,7 @@ namespace DatingSite.Controllers
                             {
                                 FriendModelId = item.Id,
                                 FriendFullName = item.ProfileOwner.FirstName + " " + item.ProfileOwner.LastName,
+                                FriendUserId = item.ProfileOwnerId,
                                 FriendRequestSide = "ProfileVisitor"
                             });
                         }
@@ -328,6 +364,7 @@ namespace DatingSite.Controllers
                                 FriendModelId = item.Id,
                                 FriendFullName = item.ProfileVisitor.FirstName + " " + item.ProfileVisitor.LastName,
                                 CategoryName = item.ProfileOwnerCategory.CategoryName,
+                                FriendUserId = item.ProfileVisitorId,
                                 FriendRequestSide = "ProfileOwner"
                             });
                         }
@@ -337,6 +374,7 @@ namespace DatingSite.Controllers
                             {
                                 FriendModelId = item.Id,
                                 FriendFullName = item.ProfileVisitor.FirstName + " " + item.ProfileVisitor.LastName,
+                                FriendUserId = item.ProfileVisitorId,
                                 FriendRequestSide = "ProfileOwner"
 
                             });

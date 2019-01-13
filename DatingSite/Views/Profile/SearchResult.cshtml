@@ -8,13 +8,13 @@
     ViewBag.Title = "SearchResult";
 }
 
-
+<h2>Search Result</h2>
 @if (Model.Any())
 {
-    <h2>Search Result</h2>
+
     <ul>
         @foreach (var item in Model)
-         {
+        {
             <a class="card-link" href="/Profile/Details/@item.Id">
                 <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
@@ -24,12 +24,11 @@
                     <small class="text-muted">@item.Email</small>
                 </li>
             </a>
-         }
-</ul>
+        }
+    </ul>
 }
 else
 {
-    <h2>Search Result</h2>
     <div class="alert alert-dismissible alert-light">
         There is no user that matches your search input.
     </div>
