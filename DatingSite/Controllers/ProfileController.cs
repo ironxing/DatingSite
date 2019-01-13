@@ -276,8 +276,77 @@ namespace DatingSite.Controllers
             var LoggedInUserId = User.Identity.GetUserId();
 
             //A list of FriendModels where prop Friends is true for active users
-            var friends = _dbcontext.FriendsModels.Where(x => (x.ProfileVisitorId == LoggedInUserId || x.ProfileOwnerId == LoggedInUserId) && x.Friends && x.ProfileOwner.IsActive && x.ProfileVisitor.IsActive).ToList();
+            var friendsAsFRSender = _dbcontext.FriendsModels
+                                    .Where(x => x.ProfileVisitorId == LoggedInUserId && x.Friends && x.ProfileOwner.IsActive && x.ProfileVisitor.IsActive)
+                                    .ToList();
 
+            var friendsAsFRReceiver = _dbcontext.FriendsModels
+                                    .Where(x => (x.ProfileOwnerId == LoggedInUserId) && x.Friends && x.ProfileOwner.IsActive && x.ProfileVisitor.IsActive)
+                                    .ToList();
+            
+            var friendListViewModels = new List<FriendListViewModel>();
+
+            if (friendsAsFRSender != null)
+            {
+                if (friendsAsFRSender.Any())
+                {
+                    foreach (var item in friendsAsFRSender)
+                    {
+                        if (item.ProfileVisitorCategory != null)
+                        {
+                            friendListViewModels.Add(new FriendListViewModel
+                            {
+                                FriendModelId = item.Id,
+                                FriendFullName = item.ProfileOwner.FirstName + " " + item.ProfileOwner.LastName,
+                                CategoryName = item.ProfileVisitorCategory.CategoryName,
+                                FriendRequestSide = "ProfileVisitor"
+                            });
+                        }
+                        else
+                        {
+                            friendListViewModels.Add(new FriendListViewModel
+                            {
+                                FriendModelId = item.Id,
+                                FriendFullName = item.ProfileOwner.FirstName + " " + item.ProfileOwner.LastName,
+                                FriendRequestSide = "ProfileVisitor"
+                            });
+                        }
+                    }
+                }
+            }
+
+            if (friendsAsFRReceiver != null)
+            {
+                if (friendsAsFRReceiver.Any())
+                {
+                    foreach (var item in friendsAsFRReceiver)
+                    {
+                        if (item.ProfileOwnerCategory != null)
+                        {
+                            friendListViewModels.Add(new FriendListViewModel
+                            {
+                                FriendModelId = item.Id,
+                                FriendFullName = item.ProfileVisitor.FirstName + " " + item.ProfileVisitor.LastName,
+                                CategoryName = item.ProfileOwnerCategory.CategoryName,
+                                FriendRequestSide = "ProfileOwner"
+                            });
+                        }
+                        else
+                        {
+                            friendListViewModels.Add(new FriendListViewModel
+                            {
+                                FriendModelId = item.Id,
+                                FriendFullName = item.ProfileVisitor.FirstName + " " + item.ProfileVisitor.LastName,
+                                FriendRequestSide = "ProfileOwner"
+
+                            });
+                        }
+                    }
+                }
+            }
+
+            var orderedFriendListViewModels = friendListViewModels.OrderBy(f => f.CategoryName).ToList();
+                
             //A list of FriendModels where prop FriendRequest is true for active users
             var friendRequests = _dbcontext.FriendsModels.Where(x => x.ProfileOwnerId == LoggedInUserId && !x.Friends && x.FriendRequest && x.ProfileOwner.IsActive && x.ProfileVisitor.IsActive).ToList();
 
@@ -286,13 +355,12 @@ namespace DatingSite.Controllers
 
             return View(new FriendsFriendRequestsViewModel
             {
-                Friends = friends,
+                FriendListViewModels = orderedFriendListViewModels,
                 FriendRequests = friendRequests,
                 FriendCategories = friendCategories
             });
         }
-
-
+        
         public class XmlResult : ActionResult
         {
             private readonly object _data;

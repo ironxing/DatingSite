@@ -20,119 +20,90 @@
 
     <div class="col-md-8">
 
-        <div class="col-md-8">
-            <div class="card-body">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr class="table-primary">
-                            <th colspan="3" scope="row">Friends</th>
-                        </tr>
 
-                        @foreach (var item in @Model.Friends)
+        <div class="card-body">
+            <table class="table table-hover">
+                <tbody>
+                    <tr class="table-primary">
+                        <th colspan="3" scope="row">Friends</th>
+                    </tr>
+
+                    @foreach (var item in @Model.FriendListViewModels)
+                    {
+                    <tr class="table-success">
+                        @*CategoryName*@
+                        @if (@item.CategoryName != null)
                         {
-                        
-
-                        <tr class="table-success">
-                            @*if current user was the Friend request sender*@
-
-                            @if (item.ProfileVisitor.Id == User.Identity.GetUserId())
-                            {
-                                <td>
-                                    @item.ProfileOwner.FirstName @item.ProfileOwner.LastName
-                                </td>
-
-                                <td>
-                                    @if (Model.FriendCategories != null)
-                                    {
-                                        if (Model.FriendCategories.Any())
-                                        {
-                                            using (Html.BeginForm("AssignFriendCategory", "Profile", null, FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0" }))
-                                            {
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="FriendModelId" value=@item.Id />
-
-                                                <div class="form-group">
-                                                    @Html.DropDownList("ddlFriendCategoryName", Model.FriendCategories.Select(f => new SelectListItem
-                                                       {
-                                                           Value = f.CategoryName.ToString(),
-                                                           Text = f.CategoryName.ToString(),
-                                                           Selected = "select" == f.CategoryName.ToString()
-                                                       }))
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <input type="hidden" name="FriendRequestSide" value="ProfileVisitor" />
-                                                    <button id="AssignCategory" class="btn btn-secondary btn-sm" type="submit">Assign category</button>
-                                                </div>
-                                            }
-                                        }
-                                    }
-                                </td>
-                            }
-
-                            @*if current user was the Friend request receiver*@
-                            @if (@item.ProfileOwner.Id == User.Identity.GetUserId())
-                            {
-                                <td>
-                                    @item.ProfileVisitor.FirstName @item.ProfileVisitor.LastName
-                                </td>
-                                <td>
-                                    @if (Model.FriendCategories != null)
-                                    {
-                                        if (Model.FriendCategories.Any())
-                                        {
-                                            using (Html.BeginForm("AssignFriendCategory", "Profile", null, FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0" }))
-                                            {
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" name="FriendModelId" value=@item.Id />
-
-                                                <div class="form-group">
-                                                    @Html.DropDownList("ddlFriendCategoryName", Model.FriendCategories.Select(f => new SelectListItem
-                                                       {
-                                                           Value = f.CategoryName.ToString(),
-                                                           Text = f.CategoryName.ToString(),
-                                                           Selected = "select" == f.CategoryName.ToString()
-                                                       }))
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <input type="hidden" name="FriendRequestSide" value="ProfileOwner" />
-                                                    <button id="AssignCategory" class="btn btn-secondary btn-sm" type="submit">Assign category</button>
-                                                </div>
-                                            }
-                                        }
-                                    }
-                                </td>
-                            }
-                        </tr>
+                            <td>
+                                @item.CategoryName
+                            </td>
                         }
-                    </tbody>
-                </table>
-            </div>
+                        else
+                        {
+                            <td>
+                                @*show nothing if no friend category assigned*@
+                            </td>
+                        }
+
+                        @*FriendFullName*@
+                        <td>
+                            @item.FriendFullName 
+                        </td>
+
+                        @*DropDownList for friend categories*@
+                        <td>
+                            @if (Model.FriendCategories != null)
+                            {
+                                if (Model.FriendCategories.Any())
+                                {
+                                    using (Html.BeginForm("AssignFriendCategory", "Profile", null, FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="FriendModelId" value=@item.FriendModelId />
+
+                                        <div class="form-group">
+                                            @Html.DropDownList("ddlFriendCategoryName", Model.FriendCategories.Select(f => new SelectListItem
+                                       {
+                                           Value = f.CategoryName.ToString(),
+                                           Text = f.CategoryName.ToString(),
+                                           Selected = "select" == f.CategoryName.ToString()
+                                       }), "-select-")
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="hidden" name="FriendRequestSide" value=@item.FriendRequestSide />
+                                            <button id="AssignCategory" class="btn btn-secondary btn-sm" type="submit">Assign category</button>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
         </div>
 
-        <div class="col-md-8">
-            <div class="card-body">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr class="table-primary">
-                            <th scope="row">Friend Requests</th>
-                        </tr>
+        <div class="card-body">
+            <table class="table table-hover">
+                <tbody>
+                    <tr class="table-primary">
+                        <th scope="row">Friend Requests</th>
+                    </tr>
 
-                        @foreach (var item in @Model.FriendRequests)
-                        {
-                            <input type="hidden" class="FriendRequestId" value="@item.Id" />
-                            <tr class="table-warning">
-                                <td>
-                                    @item.ProfileVisitor.FirstName
-                                    <span class="Accept-Friend-Request badge badge-success">ACCEPT</span>
-                                    <span class="Decline-Friend-Request badge badge-danger">DECLINE</span>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                    @foreach (var item in @Model.FriendRequests)
+                    {
+                        <input type="hidden" class="FriendRequestId" value="@item.Id" />
+                        <tr class="table-warning">
+                            <td>
+                                @item.ProfileVisitor.FirstName
+                                <span class="Accept-Friend-Request badge badge-success">ACCEPT</span>
+                                <span class="Decline-Friend-Request badge badge-danger">DECLINE</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

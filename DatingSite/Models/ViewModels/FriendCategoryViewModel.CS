@@ -9,4 +9,12 @@ namespace DatingSite.Models.ViewModels
     {
         public string CategoryName { get; set; }
     }
+
+    public class FriendListViewModel
+    {
+        public int FriendModelId { get; set; }
+        public string FriendFullName { get; set; }
+        public string CategoryName { get; set; }
+        public string FriendRequestSide { get; set; }
+    }
 }
