@@ -531,9 +531,11 @@ namespace DatingSite.Controllers
             {
 
                 DateTime date;
-                if (DateTime.TryParse(value.ToString(), out date))
-                {
-                    return date.AddYears(_minimumAge) < DateTime.Now;
+                if(value != null) { 
+                    if (DateTime.TryParse(value.ToString(), out date))
+                    {
+                        return date.AddYears(_minimumAge) < DateTime.Now;
+                    }
                 }
 
                 return false;
