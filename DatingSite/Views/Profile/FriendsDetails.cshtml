@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-md-3">
         <div class="card-body">
-            <p> <input type="text" class="form-cont</div>rol" placeholder="New friend category" id="CategoryInput"></p>
+            <p> <input type="text" class="form-cont</div>rol" required="required" placeholder="New friend category" id="CategoryInput"></p>
             <p> <button type="button" class="btn btn-primary" id="AddCategory">Add</button></p>
         </div>
     </div>
@@ -96,7 +96,7 @@
                         <input type="hidden" class="FriendRequestId" value="@item.Id" />
                         <tr class="table-light">
                             <td>
-                                @item.ProfileVisitor.FirstName
+                                <a href="/Profile/Details/@item.ProfileVisitorId">@item.ProfileVisitor.FirstName @item.ProfileVisitor.LastName </a>
                                 <span class="Accept-Friend-Request badge badge-success">ACCEPT</span>
                                 <span class="Decline-Friend-Request badge badge-danger">DECLINE</span>
                             </td>
@@ -148,15 +148,20 @@
 
             $('#AddCategory').click(function (ev) {
                 ev.preventDefault();
-
+                
                 var categoryName = $('#CategoryInput').val();
-                $('#CategoryInput').val("");
-                console.log(categoryName);
-                $.get('/api/Category/Category/Add?categoryName='
-                    + categoryName,
-                    function () {
-                        window.location.reload();
-                    });
+
+                if (categoryName != null && categoryName.trim() != "") {
+                    $('#CategoryInput').val("");
+                    console.log(categoryName);
+                    $.get('/api/Category/Category/Add?categoryName='
+                        + categoryName,
+                        function () {
+                            window.location.reload();
+                        });
+                } else {
+                    alert("Please give a name to your new friend category.");
+                }
             });
         });
     </script>

@@ -9,6 +9,7 @@ using System.Drawing;
 using DatingSite.Models.ViewModels;
 using System.Xml.Serialization;
 using System.IO;
+using System.ComponentModel.DataAnnotations;
 
 namespace DatingSite.Controllers
 {
@@ -515,6 +516,29 @@ namespace DatingSite.Controllers
             //return View();
             string contentType = "text/plain";
             return File(txtFilePathName, contentType, Path.GetFileName(txtFilePathName));
+        }
+
+        public class MinimumAgeAttribute : ValidationAttribute
+        {
+            int _minimumAge;
+
+            public MinimumAgeAttribute(int minimumAge)
+            {
+                _minimumAge = minimumAge;
+            }
+
+            public override bool IsValid(object value)
+            {
+
+                DateTime date;
+                if (DateTime.TryParse(value.ToString(), out date))
+                {
+                    return date.AddYears(_minimumAge) < DateTime.Now;
+                }
+
+                return false;
+
+            }
         }
     }
 }

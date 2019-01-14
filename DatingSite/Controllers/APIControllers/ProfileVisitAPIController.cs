@@ -53,9 +53,9 @@ namespace DatingSite.Controllers.APIControllers
                             .DistinctBy(p => p.VisitorUserId) //A method from MoreLinq library
                             .Take(5)
                             .ToList();
-                            
+
             var visitorNamesViewModels = new List<VisitorNamesViewModel>();
-            
+
             for (int i = 0; i < LatestProfileVisits.Count; i++)
             {
                 var visitorId = LatestProfileVisits[i].VisitorUserId;
@@ -71,7 +71,7 @@ namespace DatingSite.Controllers.APIControllers
             }
 
             //Format to json then return
-            return Request.CreateResponse(HttpStatusCode.OK, visitorNamesViewModels, Configuration.Formatters.JsonFormatter);  
+            return Request.CreateResponse(HttpStatusCode.OK, visitorNamesViewModels, Configuration.Formatters.JsonFormatter);
         }
     }
 }

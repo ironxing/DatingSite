@@ -18,7 +18,7 @@
         @*My Matches, shown for visitors only*@
         @if (Model.User.Id == User.Identity.GetUserId())
         {
-            @Html.ActionLink("My Matches", "MyMatches", new { id = Model.User.Id } , new{ @class="btn btn-outline-warning"})
+            @Html.ActionLink("My Matches", "MyMatches", new { id = Model.User.Id }, new { @class = "btn btn-outline-warning" })
         }
 
         @*Profile*@
@@ -81,7 +81,7 @@
                 }
                 else if (!Model.FriendStatus && !Model.Friends)
                 {
-                        <button type="button" class="btn btn-primary" id="AddFriend">Add Friend</button>
+                    <button type="button" class="btn btn-primary" id="AddFriend">Add Friend</button>
                 }
                 else if (Model.Friends && Model.FriendStatus)
                 {
@@ -112,11 +112,11 @@
             <p>
                 @if (Model.User.IsActive)
                 {
-                    <input type="submit" value="Deactive Profile" class="btn btn-danger" />
+                    <input type="submit" value="Deactive Profile" class="btn btn-danger toggle-user-active-status" />
                 }
                 else if (!Model.User.IsActive)
                 {
-                    <input type="submit" value="Reactive Profile" class="btn btn-danger" />
+                    <input type="submit" value="Reactive Profile" class="btn btn-danger toggle-user-active-status" />
                 }
             </p>
 
@@ -125,9 +125,9 @@
             <div class="card border-secondary mb-3" style="max-width: 20rem;">
                 <div class="card-header">Latest five visitors</div>
                 <div class="card-body">
-                        <ul id='VisitorList' style="list-style-type:none">
-                            @*ApiController AJAX Result come here*@
-                        </ul>
+                    <ul id='VisitorList' style="list-style-type:none">
+                        @*ApiController AJAX Result come here*@
+                    </ul>
                 </div>
             </div>
         }
@@ -140,9 +140,11 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Message</h5>
                 </div>
+
                 <div class="modal-body">
-                    <textarea rows="3" cols="70" id="new-message"></textarea>
+                        <textarea id="MessageText" rows="3" cols="70"></textarea>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" id="SendMessage" class="btn btn-primary">Post Message</button>
                 </div>
@@ -191,6 +193,7 @@
 
     <input type="hidden" id="ProfileUserId" value="@Model.User.Id" />
     <input type="hidden" id="VisitorUserId" value="@User.Identity.GetUserId()" />
+
 </div>
   
 
@@ -214,27 +217,25 @@
                     });
                 }
             });
-
-
+            
             $('#SendMessage').click(function (ev) {
                 ev.preventDefault();
 
-                var Message = $('#new-message').val();
-                if (Message != null && Message != "") {
-                    var SenderId = $('#VisitorUserId').val();
-                    var RecieverId = $('#ProfileUserId').val();
-
-                    $('#new-message').val("");
-
-                    $.get('/API/Message/Message/Add?message='
-                        + Message + '&senderId=' + SenderId + '&recieverId=' + RecieverId,
-                        function () {
-                            window.location.reload();
-                        });
+                var messageText = $('#MessageText').val()
+                
+                if (messageText != null && messageText.trim() != "") {
+                    $('#MessageText').val("");
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/Message/Message/Add',
+                        data: JSON.stringify(messageText),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json'
+                    });
+                    window.location.reload();
                 } else {
                     alert("Please write something in your message, you cannot leave a empty message.");
                 }
-                
             });
 
             $('#AddFriend').click(function (ev) {

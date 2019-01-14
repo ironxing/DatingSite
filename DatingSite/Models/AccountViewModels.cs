@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using static DatingSite.Controllers.ProfileController;
 
 namespace DatingSite.Models
 {
@@ -108,10 +109,11 @@ namespace DatingSite.Models
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Required]
-        [Display(Name = "Birthdate")]
-        public DateTime BirthDate { get; set; }
-        
+        [MinimumAge(18)]
+        [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> BirthDate { get; set; }
+
         public Gender Gender { get; set; }
         
         [Display(Name = "Looking for gender")]

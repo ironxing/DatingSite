@@ -1,4 +1,6 @@
 ﻿using DatingSite.Models;
+using DatingSite.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +48,5 @@ namespace DatingSite.Controllers.APIControllers
                 _dbcontext.SaveChanges();
             }
         }
-
     }
 }
