@@ -239,10 +239,10 @@ namespace DatingSite.Controllers
         {
             List<ApplicationUser> EmailMatched = _dbcontext.Users.Where(u => u.UserName.Equals(SearchInput) && u.IsActive).ToList();
 
-            List<ApplicationUser> FirstNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.FirstName) && u.IsActive).ToList();
+            List<ApplicationUser> FirstNameMatched = _dbcontext.Users.Where(u => (SearchInput.Contains(u.FirstName) || u.FirstName.Contains(SearchInput)) && u.IsActive).ToList();
 
-            List<ApplicationUser> LastNameMatched = _dbcontext.Users.Where(u => SearchInput.Contains(u.LastName) && u.IsActive).ToList();
-            
+            List<ApplicationUser> LastNameMatched = _dbcontext.Users.Where(u => (SearchInput.Contains(u.LastName)|| u.LastName.Contains(SearchInput)) && u.IsActive).ToList();
+
             //Union the lists together, get disctinct users
             List<ApplicationUser> SearchResult = EmailMatched.Union(FirstNameMatched).Union(LastNameMatched).ToList();
 

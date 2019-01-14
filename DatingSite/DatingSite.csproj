@@ -381,7 +381,6 @@
     <Content Include="Views\Profile\SearchResult.cshtml" />
     <Content Include="Views\Profile\FriendRequestPartialView.cshtml" />
     <Content Include="Views\Profile\FriendsDetails.cshtml" />
-    <Content Include="Views\Profile\ExportUserData.cshtml" />
     <Content Include="Views\Profile\MyMatches.cshtml" />
   </ItemGroup>
   <ItemGroup>

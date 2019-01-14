@@ -220,16 +220,21 @@
                 ev.preventDefault();
 
                 var Message = $('#new-message').val();
-                var SenderId = $('#VisitorUserId').val();
-                var RecieverId = $('#ProfileUserId').val();
+                if (Message != null && Message != "") {
+                    var SenderId = $('#VisitorUserId').val();
+                    var RecieverId = $('#ProfileUserId').val();
 
-                $('#new-message').val("");
+                    $('#new-message').val("");
 
-                $.get('/API/Message/Message/Add?message='
-                    + Message + '&senderId=' + SenderId + '&recieverId=' + RecieverId,
-                    function () {
-                        window.location.reload();
-                });
+                    $.get('/API/Message/Message/Add?message='
+                        + Message + '&senderId=' + SenderId + '&recieverId=' + RecieverId,
+                        function () {
+                            window.location.reload();
+                        });
+                } else {
+                    alert("Please write something in your message, you cannot leave a empty message.");
+                }
+                
             });
 
             $('#AddFriend').click(function (ev) {
