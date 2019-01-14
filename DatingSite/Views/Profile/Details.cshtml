@@ -220,17 +220,18 @@
             
             $('#SendMessage').click(function (ev) {
                 ev.preventDefault();
+                var messageText = $('#MessageText').val();
+                var receiverId = $('#ProfileUserId').val();
+                var senderId = $('#VisitorUserId').val();
 
-                var messageText = $('#MessageText').val()
-                
                 if (messageText != null && messageText.trim() != "") {
                     $('#MessageText').val("");
+                    var sendMessageViewModel = { MessageText: messageText, SenderId: senderId, ReceiverId: receiverId};
                     $.ajax({
-                        type: 'POST',
                         url: '/api/Message/Message/Add',
-                        data: JSON.stringify(messageText),
+                        type: 'POST',
+                        data: JSON.stringify(sendMessageViewModel),
                         contentType: 'application/json; charset=utf-8',
-                        dataType: 'json'
                     });
                     window.location.reload();
                 } else {

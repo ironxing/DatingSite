@@ -20,18 +20,18 @@ namespace DatingSite.Controllers.APIControllers
             _dbcontext = new ApplicationDbContext();
         }
 
-        // Get ('api/Message/Message/Add?')
+        // Post ('api/Message/Message/Add?')
         [Route("Message/Add")]
-        [HttpGet]
-        public void AddMessage(string senderId, string recieverId, string message)
+        [HttpPost]
+        public void AddMessage(SendMessageViewModel sendMessageViewModel)
         {
             var DateTimeNow = DateTime.Now;
             _dbcontext.MessageItems.Add(new MessageItem
             {
                 messageTime = DateTimeNow,
-                MessageReceiverId = recieverId,
-                MessageSenderId = senderId,
-                Text = message
+                MessageReceiverId = sendMessageViewModel.ReceiverId,
+                MessageSenderId = sendMessageViewModel.SenderId,
+                Text = sendMessageViewModel.MessageText
             });
             _dbcontext.SaveChanges();
         }
