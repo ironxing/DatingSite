@@ -491,11 +491,14 @@ namespace DatingSite.Controllers
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Gender = user.Gender,
+                LookingForGender = user.LookingForGender,
                 Description = user.Description,
+                BirthDate = user.BirthDate,
                 Email = user.Email,
 
                 ExportMessageViewModels = exportMessageViewModels,
-                ExporProfileVisits = exporProfileVisits,
+                ExportProfileVisits = exporProfileVisits,
                 ExportFriends = exportFriends
             };
 
@@ -509,7 +512,9 @@ namespace DatingSite.Controllers
                 s.Close();
             }
 
-            return View();
+            //return View();
+            string contentType = "text/plain";
+            return File(txtFilePathName, contentType, Path.GetFileName(txtFilePathName));
         }
     }
 }
