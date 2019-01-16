@@ -159,6 +159,7 @@ namespace DatingSite.Controllers
                 user.Gender = model.Gender;
                 user.LookingForGender = model.LookingForGender;
                 user.BirthDate = model.BirthDate;
+                user.IsActive = true;
 
                 if (file != null)
                 {
