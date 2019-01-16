@@ -177,7 +177,8 @@ namespace DatingSite.Controllers
                 userInDb.Description = User.Description;
                 userInDb.Gender = User.Gender;
                 userInDb.LookingForGender = User.LookingForGender;
-                userInDb.BirthDate = User.BirthDate;
+                userInDb.Email = User.Email;
+                userInDb.UserName = User.UserName;
 
                 if (ModelState.IsValid)
                 {
